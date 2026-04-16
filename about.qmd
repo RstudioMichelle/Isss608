@@ -2,8 +2,4 @@
 title: "About"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+This website encapsulate the learnings and the coursework for ISSS608, Visual Analytics. This is possible with the thorough and dedicated guidance by Prof Kam. 

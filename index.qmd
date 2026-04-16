@@ -1,5 +1,5 @@
 ---
-title: "Isss608-VAA_Michelle"
+title: "Welcome to my Visual Analytics page!"
 ---
 
-**Welcome to ISSS608 Visual Analytics and Application!**
+**The best time to plant a tree was 20 years ago. The second best time is now.**
