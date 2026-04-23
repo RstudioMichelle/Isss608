@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Isss608-VAA_Michelle"
+  title: "Isss608 Coursework"
   navbar:
     left:
       - href: index.qmd
@@ -10,7 +10,9 @@ website:
       - text: "Hands-on Exercises"
         menu:
           - text: "Hands-on Exercise 1"
-            file: hands-on-1.qmd
+            file: HandsOnExercise/hands-on-1.qmd
+          - text: "Hands-on Exercise 2"
+            file: HandsOnExercise/hands-on-2.qmd
       - href: about.qmd
 
 format:

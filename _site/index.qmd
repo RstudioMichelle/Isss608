@@ -1,5 +1,0 @@
----
-title: "index.qmd"
----
-
-Welcome to my Visual Analytics page!

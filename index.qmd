@@ -2,10 +2,10 @@
 title: "Roller Coaster Ride with Visual Analytics"
 ---
 
-::: callout-note
+::: {.callout-note appearance="simple" icon="false"}
 **Nobody: Why are you taking Visual Analytics?**
 
 **Me: I am growing a forest of learnings!**
-
-![](images/images.jpeg)
 :::
+
+![](Images/Forest.jpg)
