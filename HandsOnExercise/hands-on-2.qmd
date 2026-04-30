@@ -79,7 +79,7 @@ As a better approach, we use [**ggrepel**](https://ggrepel.slowkow.com/)whichpro
 
 Using an example of English scores versus Math scores for Primary 3.
 
-::: panel-tabset
+::::::::::::::::::: panel-tabset
 ## The plot
 
 ```{r}
@@ -98,6 +98,7 @@ ggplot(data=exam_data,
 
 ## The code
 
+::: {style="font-size: 1.4em"}
 ```{r}
 #| eval: false
 #| echo: true
@@ -625,3 +626,4 @@ patchwork & theme_economist()
 -   [ggplot2 Theme Elements Demonstration](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
 
 -   [ggplot2 Theme Elements Reference Sheet](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
+:::::::::::::::::::
