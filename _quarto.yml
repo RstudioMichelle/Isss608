@@ -17,6 +17,10 @@ website:
             file: HandsOnExercise/hands-on-3-interactive-data.qmd   
           - text: "Hands-on Exercise 3 part II"
             file: HandsOnExercise/hands-on-3-animated-data.qmd 
+          - text: "Hands-on Exercise 4 part I"
+            file: HandsOnExercise/hands-on-4a.qmd 
+          - text: "Hands-on Exercise 4 part II"
+            file: HandsOnExercise/hands-on-4b.qmd 
       - href: about.qmd
 
 format:
