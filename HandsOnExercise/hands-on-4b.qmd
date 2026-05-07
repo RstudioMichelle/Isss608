@@ -36,7 +36,7 @@ The following will be achieved:
 pacman::p_load(ggstatsplot, tidyverse)
 ```
 
-### **1.3.2 Importing data**
+### **1.3.2 Import data**
 
 The same data set from the previous exercises, *Exam_data.csv,* will be used.
 
@@ -61,7 +61,7 @@ gghistostats(
 )
 ```
 
-![](images/English scores.png)
+![](images/English%20scores.png)
 
 ### 1.3.4 Unpacking the Bayes Factor
 
@@ -79,7 +79,7 @@ The [**Schwarz criterion**](https://www.statisticshowto.com/bayesian-information
 
 A **Bayes Factor** can be any positive number. One of the most common interpretations is this:
 
-![](images/Bayes Factor.jpg)
+![](images/Bayes%20Factor.jpg)
 
 ### **1.3.6 Two-sample mean test: *ggbetweenstats()***
 
@@ -117,7 +117,7 @@ ggbetweenstats(
 )
 ```
 
-![](images/One way anova.png)
+![](images/One%20way%20anova.png)
 
 -   “ns” → only non-significant
 
@@ -127,11 +127,11 @@ ggbetweenstats(
 
 #### 13.7.1 ggbetweenstats - Summary of tests
 
-![](images/summary of tests.jpg)
+![](images/summary%20of%20tests.jpg)
 
-![](images/Summary of tests 2.jpg)
+![](images/Summary%20of%20tests%202.jpg)
 
-![](images/Summary of tests 3.jpg)
+![](images/Summary%20of%20tests%203.jpg)
 
 ### **1.3.8 Significant Test of Correlation: *ggscatterstats()***
 

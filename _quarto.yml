@@ -21,6 +21,10 @@ website:
             file: HandsOnExercise/hands-on-4a.qmd 
           - text: "Hands-on Exercise 4 part II"
             file: HandsOnExercise/hands-on-4b.qmd 
+          - text: "Hands-on Exercise 4 part III"
+            file: HandsOnExercise/hands-on-4c.qmd 
+          - text: "Hands-on Exercise 4 part IV"
+            file: HandsOnExercise/hands-on-4d.qmd 
       - href: about.qmd
 
 format:

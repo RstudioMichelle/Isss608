@@ -2,10 +2,8 @@
 title: "Visual Analytics - A Wild Wow Ride"
 ---
 
-::: {.callout-note appearance="simple" icon="false"}
 **Nobody: Why are you taking Visual Analytics?**
 
-**Me: I am growing a forest of learnings!**
-:::
+**Michelle: I am growing a forest of learnings!**
 
 ![](HandsOnExercise/images/Forest.jpg)
