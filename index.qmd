@@ -8,4 +8,4 @@ title: "Visual Analytics - A Wild Wow Ride"
 **Me: I am growing a forest of learnings!**
 :::
 
-![](Images/Forest.jpg)
+![](HandsOnExercise/images/Forest.jpg)

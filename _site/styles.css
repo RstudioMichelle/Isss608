@@ -7,5 +7,18 @@ a {
 /* Make your homepage title stand out */
 .title {
   font-weight: 800;
-  color: #333;
+  color: #000000;
+}
+
+.sidebar-navigation .nav-link, 
+.sidebar-item-text,
+.sidebar-link {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Ensure they stay black even after being clicked or visited */
+.sidebar-navigation .nav-link:visited,
+.sidebar-link:visited {
+  color: #000000 !important;
 }
