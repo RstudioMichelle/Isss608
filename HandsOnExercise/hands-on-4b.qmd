@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 4 part I"
+title: "Hands-on Exercise 4 part II"
 author: "Michelle Chen"
 date: "06 May 2026"
 date-modified: "last-modified"
@@ -61,8 +61,6 @@ gghistostats(
 )
 ```
 
-![](images/English%20scores.png)
-
 ### 1.3.4 Unpacking the Bayes Factor
 
 Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another.
@@ -95,8 +93,6 @@ ggbetweenstats(
 )
 ```
 
-![](images/Gender.png)
-
 Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
 
 ### **1.3.7 Oneway ANOVA Test: *ggbetweenstats()* method**
@@ -116,8 +112,6 @@ ggbetweenstats(
   messages = FALSE
 )
 ```
-
-![](images/One%20way%20anova.png)
 
 -   “ns” → only non-significant
 
@@ -146,8 +140,6 @@ ggscatterstats(
   )
 ```
 
-![](images/ggscatterstats.png)
-
 ### **1.3.9 Significant Test of Association (Depedence) : *ggbarstats()* methods**
 
 The Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut).
@@ -167,5 +159,3 @@ ggbarstats(exam1,
            x = MATHS_bins, 
            y = GENDER)
 ```
-
-![](images/ggbarstats.png)
