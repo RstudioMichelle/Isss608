@@ -25,12 +25,21 @@ website:
             file: HandsOnExercise/hands-on-4c.qmd 
           - text: "Hands-on Exercise 4 part IV"
             file: HandsOnExercise/hands-on-4d.qmd 
+          - text: "Hands-on Exercise 5 part I"
+            file: HandsOnExercise/hands-on-5a.qmd 
+          - text: "Hands-on Exercise 5 part II"
+            file: HandsOnExercise/hands-on-5b.qmd 
+          - text: "Hands-on Exercise 5 part III"
+            file: HandsOnExercise/hands-on-5c.qmd 
+          - text: "Hands-on Exercise 5 part IV"
+            file: HandsOnExercise/hands-on-5d.qmd 
+          - text: "Hands-on Exercise 5 part V"
+            file: HandsOnExercise/hands-on-5e.qmd 
       - href: about.qmd
 
 format:
   html:
-    theme:
-      light: [lumen, brand]
+    theme: minty
     css: styles.css
     toc: true
 

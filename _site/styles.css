@@ -1,24 +1,29 @@
-/* css styles */
-a {
-  color: #1a7480;
-  text-decoration: none;
+body {
+  background-color: #fffafc;
+  color: #5c5470;
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* Make your homepage title stand out */
-.title {
-  font-weight: 800;
-  color: #000000;
+h1, h2, h3 {
+  color: #8e7ab5;
 }
 
-.sidebar-navigation .nav-link, 
-.sidebar-item-text,
-.sidebar-link {
-  color: #000000 !important;
-  opacity: 1 !important;
+code {
+  background-color: #f3e8ff;
+  color: #7c3f8c;
 }
 
-/* Ensure they stay black even after being clicked or visited */
-.sidebar-navigation .nav-link:visited,
-.sidebar-link:visited {
-  color: #000000 !important;
+pre {
+  background-color: #fdf4ff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.callout-note {
+  background-color: #e0f7fa;
+  border-left: 5px solid #81d4fa;
+}
+
+.callout-warning {
+  background-color: #fff3cd;
 }
