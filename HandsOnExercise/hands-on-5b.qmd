@@ -166,6 +166,10 @@ ggplot.component = list(
 Since ggstasplot is an extension of ggplot2, it also supports faceting. The feature is available in the [*grouped_ggcorrmat()*](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html) of **ggstatsplot**.
 
 ```{r}
+#| fig-width: 14
+#| fig-height: 7
+#| out-width: 100%
+
 grouped_ggcorrmat(
   data = wine,
   cor.vars = 1:11,

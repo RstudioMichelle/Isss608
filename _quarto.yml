@@ -36,6 +36,7 @@ website:
           - text: "Hands-on Exercise 5 part V"
             file: HandsOnExercise/hands-on-5e.qmd 
       - href: about.qmd
+        text: About
 
 format:
   html:
