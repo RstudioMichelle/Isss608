@@ -1,0 +1,854 @@
+---
+title: "Take-home Exercise 1"
+subtitle: "Visual Analytics for Motor Insurance Portfolio Discovery"
+author: "Michelle Chen"
+date: "23 May 2026"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    smaller: true
+    scrollable: true
+    css: style.css
+    preview-links: auto
+    footer: "Visual Analytics for Motor Insurance Portfolio Discovery"
+execute:
+  echo: false
+  warning: false
+  message: false
+editor: visual
+---
+
+```{r}
+#| include: false
+pacman::p_load(tidyverse, ggplot2, scales, ggridges, corrplot, patchwork)
+
+# Use ; to identify separate columns in the csv file
+insurance_data <- read_delim(
+  "data/Dataset of motor insurance portfolio.csv", 
+  delim = ";",
+  escape_double = FALSE,
+  trim_ws = TRUE
+)
+
+# Calculate missing values for all columns
+missing_counts <- colSums(is.na(insurance_data))
+# Display columns that have at least 1 missing value
+missing_counts[missing_counts > 0]
+
+# Drop any row that contains an NA in these specific columns
+insurance_clean <- insurance_data %>%
+  drop_na(vehicle_age, age_driving_licence, fuel_type, vehicle_value)
+```
+
+```{r setup}
+#| include: false
+
+# Load packages
+pacman::p_load(
+  tidyverse,
+  scales,
+  ggridges,
+  corrplot,
+  patchwork
+)
+
+# Load dataset
+insurance_data <- read_delim(
+  "data/Dataset of motor insurance portfolio.csv",
+  delim = ";",
+  escape_double = FALSE,
+  trim_ws = TRUE,
+  show_col_types = FALSE
+)
+
+# Drop missing values
+insurance_clean <- insurance_data %>%
+  drop_na(vehicle_age, age_driving_licence, fuel_type, vehicle_value)
+
+# Transform datatype
+insurance_clean <- insurance_clean %>%
+  mutate(
+# Convert unique ID into text to prevent accidental math operations
+    insured_id = as.character(insured_id), 
+# Convert the tracking year into categorical factors
+    year = as.factor(year),
+# Convert all text character columns into categorical factors automatically
+    across(
+      where(is.character) & -insured_id, as.factor
+  )
+)
+
+# Feature engineering
+insurance_final <- insurance_clean %>%
+  mutate(
+    # 1. Net Profit
+    net_profit = total_premium - total_incurred,
+    
+    # 2. Loss Ratio
+    loss_ratio = if_else(
+      total_premium > 0, total_incurred / total_premium, NA_real_
+    ),
+    
+    # 3. Claim Frequency
+    claim_frequency = if_else(
+      total_exposure > 0.0, total_claims / total_exposure, NA_real_
+    ),
+    
+    # 4. Claim Severity
+    claim_severity = if_else(
+      total_claims > 0.0, total_incurred / total_claims, NA_real_
+    ),
+    
+    # 5. Claim indicator 
+    has_claim = factor(
+      if_else(total_claims > 0.0, "Yes", "No")
+    ),
+    
+    # 6. Driving experience
+    driving_experience = driver_age - age_driving_licence,
+    experience_group = cut(
+      driving_experience,
+      breaks = c(0, 5, 10, 20, 30, Inf),
+      labels = c("0-5", "6-10", "11-20", "21-30", "30+"),
+      include.lowest = TRUE 
+    ),
+    
+    # 7. Vehicle age group 
+    vehicle_age_group = cut(
+      vehicle_age,
+      breaks = c(0, 5, 10, 15, 20, Inf),
+      labels = c("0-5", "6-10", "11-15", "16-20", "20+"),
+      include.lowest = TRUE  #
+    ),
+    
+    # 8. Driver age group
+    age_group = cut(
+      driver_age,
+      breaks = c(18, 30, 40, 50, 60, Inf),
+      labels = c("18-30", "31-40", "41-50", "51-60", "60+"),
+      include.lowest = TRUE  
+    )
+  )
+```
+
+## Contents
+
+1.  Financial Variable - Total Premium
+
+2.  Financial Variable - Incurred Losses, Claim Severity
+
+3.  Customer Demographics - Driver Age and Experience
+
+4.  Customer Demographics - Driver Bonus Score
+
+5.  Vehicle Characteristics - Value and Age
+
+6.  Portfolio Composition - Policy Type, Claim Occurrence
+
+7.  Correlation Matrix
+
+8.  Net Profit by Driver Age and Experience
+
+9.  Net Profit by Policy Type
+
+10. Claim Frequency and Severity by Vehicle Age
+
+11. Claim Frequency and Severity by Driving Experience
+
+12. Profitability and Claim Trend
+
+13. Conclusion
+
+## Financial Variable - Total Premium
+
+```{r}
+#| label: totalpremium
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+
+ggplot(
+  insurance_final,
+  aes(x = total_premium)
+) +
+  geom_histogram(
+    bins = 40,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(xlim = c(0, 1500)) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Distribution of Total Premium",
+    x = "Total Premium",
+    y = "Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+::: aside
+- Right-skewed distribution - most policyholders contribute low premium amounts, \< \$500/year.
+
+- A smaller group contributes larger premiums, up to around \$1 250/year.
+
+- The customer segments have varying levels of risk exposure and coverage requirements.
+:::
+
+## Financial Variable - Incurred Losses, Claim Severity
+
+```{r}
+#| label: lossesxclaimseverity
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(x = log1p(total_incurred))
+) +
+  geom_histogram(
+    bins = 50,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Distribution of Total Incurred Losses on Log Scale",
+    x = "Log(1 + Total Incurred Losses)",
+    y = "Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(x = claim_severity)
+) +
+  geom_histogram(
+    bins = 50,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(
+    xlim = c(0, 20000)
+  ) +
+  scale_x_continuous(
+    labels = scales::comma
+  ) +
+  labs(
+    title = "Distribution of Claim Severity",
+    x = "Claim Severity",
+    y = "Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Policies with little or no financial losses dominates the portfolio.
+
+- Claim severity contains extreme outliers - a small number of claims generate disproportionately high financial losses.
+:::
+
+## Customer Demographics - Driver Age and Experience
+
+```{r}
+#| label: driveragexexperience
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(x = age_group)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Driver Age Groups",
+    x = "Driver Age Group",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(x = experience_group)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Driving Experience Groups",
+    x = "Driving Experience Group",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Most policyholders are in the 41 to 50 years old age group while a very small portion of them are 30 years old and below.
+
+- Experienced drivers dominate the portfolio - most have more than 10 years of driving experience.
+:::
+
+## Customer Demographics - Driver Bonus Score
+
+```{r}
+#| label: driverbonusscore
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+ggplot(
+  insurance_final,
+  aes(x = bonus_score)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Bonus Score",
+    x = "Bonus Score",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+::: aside
+- Most of the policyholders have a positive bonus score.
+
+- This reflects that they have favourable claims history and are generally less risky policyholders.
+:::
+
+## Vehicle Characteristics - Value and Age
+
+```{r}
+#| label: vehiclevaluexage
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(x = vehicle_value)
+) +
+  geom_histogram(
+    bins = 40,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  coord_cartesian(xlim = c(0, 50000)) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Distribution of Vehicle Value",
+    x = "Vehicle Value",
+    y = "Frequency"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(x = vehicle_age_group)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Vehicle Age Groups",
+    x = "Vehicle Age Group",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- The vehicle values are right skewed, with most of them ranging between \$15 000 to \$35 000.
+
+- Most insured vehicles are of moderate market values while a smaller segment containing substantially higher-valued vehicles.
+
+- Most insured vehicles are 20 years old and above, which may suggests that they have higher maintenance and operational risks. A statistical test is performed to validate this hypothesis in later slides.
+:::
+
+## Portfolio Composition - Policy Type, Claim Occurrence
+
+```{r}
+#| label: policytypexclaim
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(x = policy_type)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Policy Types",
+    x = "Policy Type",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(x = has_claim)
+) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Distribution of Claim Occurrence",
+    x = "Claim Indicator",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Third-party liability combined with two or more additional coverage is the most common insurance purchased.
+
+- The portfolio is dominated by non-claim policies - claims occur infrequently.
+:::
+
+## Correlation Matrix
+
+```{r}
+#| label: correlationmatrix
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+numeric_vars <- insurance_final %>%
+  select(
+    total_premium,
+    total_incurred,
+    net_profit,
+    loss_ratio,
+    claim_frequency,
+    claim_severity,
+    vehicle_value,
+    driver_age,
+    vehicle_age,
+    driving_experience,
+    total_claims,
+    total_exposure
+  )
+
+cor_matrix <- cor(
+  numeric_vars,
+  use = "complete.obs"
+)
+
+corrplot(
+  cor_matrix,
+  method = "color",
+  type = "lower",
+  addCoef.col = "black",
+  tl.col = "black",
+  tl.cex = 0.9,
+  number.cex = 0.7,
+  col = colorRampPalette(
+    c("steelblue", "white", "tomato")
+  )(200)
+)
+```
+
+::: aside
+- Correlation matrix analysis is done on numerical variables.
+
+- Unexpectedly, driver age and driving experience demonstrate weak linear relationships with profitability-related variables (absolute values between 0.01 and 0.02).
+
+- Vehicle value and vehicle age also exhibit weak correlations with profitability-related variables.
+
+- This suggest that any variable alone does not have strong correlation with profitability and volatility measures.
+:::
+
+## Net Profit by Driver Age and Experience
+
+```{r}
+#| label: netprofitxdriver
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(
+    x = net_profit,
+    y = age_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = age_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(xlim = c(-5000, 3000)) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Net Profit Distribution Across Driver Age Groups",
+    x = "Net Profit",
+    y = "Driver Age Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(
+    x = net_profit,
+    y = experience_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = experience_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(xlim = c(-5000, 3000)) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Net Profit Distribution Across Driving Experience Groups",
+    x = "Net Profit",
+    y = "Driving Experience Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- The net profit distribution across different driver age groups and years of experience appears to be largely similar.
+
+- Drivers between 18 to 30 years old drivers with 0 to 5 years of experience exhibits a narrower negative-profit tail as compared to the rest.
+
+- A statistical test validates that **net** **profit differs significantly** across age groups and driving experience groups.
+:::
+
+## Net Profit by Policy Type
+
+```{r}
+#| label: policytype
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+ggplot(
+  insurance_final,
+  aes(
+    x = net_profit,
+    y = policy_type
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = policy_type),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(xlim = c(-5000, 3000)) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(
+    title = "Net Profit Distribution Across Policy Types",
+    x = "Net Profit",
+    y = "Policy Type"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+::: aside
+- Basic third party liability coverage exhibits more concentrated profitability distributions than the rest.
+
+- A statistical test validates that **net profit differs significantly** across policy types.
+:::
+
+## Claim Frequency and Severity by Vehicle Age
+
+```{r}
+#| label: claimxvehicleage
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(
+    x = claim_frequency,
+    y = vehicle_age_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = vehicle_age_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(xlim = c(0, 5)) +
+  labs(
+    title = "Claim Frequency by Vehicle Age Groups",
+    x = "Claim Frequency",
+    y = "Vehicle Age Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(
+    x = claim_severity,
+    y = vehicle_age_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = vehicle_age_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(
+    xlim = c(0, 20000)
+  ) +
+  scale_x_continuous(
+    labels = scales::comma
+  ) +
+  labs(
+    title = "Claim Severity by Vehicle Age Groups",
+    x = "Claim Severity",
+    y = "Vehicle Age Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Older vehicles exhibit wider and more volatile claim frequency distributions, suggesting increased accident occurrence risk.
+
+- Older vehicles also exhibit heavier positive claim severity tails, suggesting greater exposure to severe financial losses.
+
+- A statistical test validates that **claim frequency AND severity differs significantly** across vehicle age groups.
+:::
+
+## Claim Frequency and Severity by Driving Experience
+
+```{r}
+#| label: claimxdrivingexperience
+#| fig-width: 13
+#| fig-height: 4
+#| echo: false
+#| warning: false
+#| message: false
+
+p1 <- ggplot(
+  insurance_final,
+  aes(
+    x = claim_frequency,
+    y = experience_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = experience_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(
+    xlim = c(0, 5)
+  ) +
+  labs(
+    title = "Claim Frequency by Driving Experience Groups",
+    x = "Claim Frequency",
+    y = "Driving Experience Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+p2 <- ggplot(
+  insurance_final,
+  aes(
+    x = claim_severity,
+    y = experience_group
+  )
+) +
+  ggridges::geom_density_ridges(
+    fill = "steelblue",
+    alpha = 0.7,
+    scale = 1.2,
+    color = NA
+  ) +
+  geom_boxplot(
+    aes(group = experience_group),
+    width = 0.12,
+    fill = "gray",
+    color = "black",
+    outlier.alpha = 0.15
+  ) +
+  coord_cartesian(
+    xlim = c(0, 20000)
+  ) +
+  scale_x_continuous(
+    labels = scales::comma
+  ) +
+  labs(
+    title = "Claim Severity by Driving Experience Groups",
+    x = "Claim Severity",
+    y = "Driving Experience Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Drivers with higher driving experience have more outliers in frequency boxplot - suggests increased accident occurrence volatility.
+
+- Drivers with higher driving experience also have more outliers in claim severity tails - suggests greater exposure to severe claim events.
+
+- A statistical test validates that **claim frequency AND severity differs significantly** across driving experience groups.
+:::
+
+## Profitability and Claim Trend 
+
+```{r}
+#| label: profitxclaimtrend
+#| fig-width: 13
+#| fig-height: 5
+#| echo: false
+#| warning: false
+#| message: false
+
+yearly_summary <- insurance_final %>%
+  group_by(year) %>%
+  summarise(
+    avg_profit = mean(net_profit, na.rm = TRUE)
+  )
+
+p1 <- ggplot(
+  yearly_summary,
+  aes(
+    x = year,
+    y = avg_profit,
+    group = 1
+  )
+) +
+  geom_line(
+    color = "steelblue",
+    linewidth = 1.2
+  ) +
+  geom_point(
+    color = "steelblue",
+    size = 3
+  ) +
+  labs(
+    title = "Average Net Profit Across Years",
+    x = "Year",
+    y = "Average Net Profit"
+  ) +
+  theme_minimal(base_size = 14)
+
+claim_trend <- insurance_final %>%
+  group_by(year) %>%
+  summarise(
+    avg_incurred = mean(total_incurred, na.rm = TRUE),
+    avg_claim_frequency = mean(claim_frequency, na.rm = TRUE)
+  )
+
+p2 <- ggplot(
+  claim_trend,
+  aes(x = year, group = 1)
+) +
+  geom_line(
+    aes(y = avg_incurred, color = "Average Incurred Loss")
+  ) +
+  geom_line(
+    aes(y = avg_claim_frequency * 1000,
+        color = "Claim Frequency (Scaled)")
+  ) +
+  labs(
+    title = "Claim Trend Across Years",
+    x = "Year",
+    y = "Trend Value",
+    color = "Metric"
+  ) +
+  theme_minimal(base_size = 14)
+
+patchwork::wrap_plots(p1, p2, ncol = 2)
+```
+
+::: aside
+- Claim frequency increased steadily from 2022 to 2024, indicating a gradual rise in accident occurrence rates and overall portfolio risk exposure over time.
+- Average incurred losses also increased progressively with a steeper increase between 2023 and 2024.
+- This suggests that not only are claims occurring more frequently, but the financial severity of claims may also be worsening.
+- Overall concluding remarks can be found here.
+:::
+
+## Conclusion
+
+1.  Portfolio is dominated by low-claim and low-loss policies.
+2.  Policy type demonstrates clearer differences in portfolio performance as compared to individual demographic or vehicle characteristics alone.
+3.  Portfolio net profit differs significantly across driver age, driving experience, vehicle age, and vehicle value.
+4.  Volatility analysis showed that older vehicles and more experienced drivers are associated with wider claim frequency and claim severity distributions.
+5.  There is a deteriorating portfolio performance over time:
+    - claim frequency and incurred losses increased steadily from 2022 to 2024
+
+    - average profitability declined sharply in 2024.

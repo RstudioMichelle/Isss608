@@ -27,3 +27,31 @@ pre {
 .callout-warning {
   background-color: #fff3cd;
 }
+
+
+/* RevealJS slide sizing */
+
+.reveal h1 {
+  font-size: 2em;
+}
+
+.reveal h2 {
+  font-size: 1.4em;
+}
+
+.reveal h3 {
+  font-size: 1.1em;
+}
+
+.reveal p,
+.reveal li {
+  font-size: 0.6em;
+}
+
+.reveal ul {
+  margin-top: 10px;
+}
+
+.reveal .slides section {
+  padding-top: 10px;
+}

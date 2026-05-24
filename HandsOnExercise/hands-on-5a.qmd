@@ -31,7 +31,7 @@ The hands-on exercise consists of four steps:
 
 1.  [**ggtern**](http://www.ggtern.com/), a ggplot extension designed to plot ternary diagrams. The package will be used to plot static ternary plots.
 
--   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js.
+- [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js.
 
 Selected **tidyverse** family packages - **readr**, **dplyr** and **tidyr** are also required.
 
@@ -55,7 +55,7 @@ The [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwe
 pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv")
 ```
 
-### **13.3 Prepare Data**
+### **1.3 Prepare Data**
 
 ***mutate()*** function of **dplyr** package is used to derive 3 new measure - young, active, and old.
 
