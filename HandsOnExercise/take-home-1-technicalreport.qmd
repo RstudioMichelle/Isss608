@@ -264,8 +264,6 @@ This section applies appropriate univariate and bivariate visual analytics techn
 
 ## 4.1 Financial Variable Behaviour
 
-Financial variables are explored to understand portfolio profitability, underwriting performance, and the presence of extreme financial observations.
-
 ### 4.1.1 Distribution of Total Premium
 
 ::: panel-tabset
@@ -449,8 +447,6 @@ The claim severity distribution contains extreme outliers, indicating that a sma
 :::
 
 ## 4.2 Customer Risk Structure
-
-Customer-related variables are explored to understand the demographic and behavioural characteristics of the insurance portfolio.
 
 ### 4.2.1 Distribution of Driver Age Groups
 
@@ -1627,6 +1623,8 @@ The test results shows that p value is \< 0.05, rejects the null hypothesis and 
 
 ## 7 Temporal Trend Analysis
 
+This section examines the temporal movement of portfolio profitability and claim behaviour across the observation years.
+
 ### 7.1 Profitability Trend
 
 ::: panel-tabset
@@ -1708,8 +1706,6 @@ The average net profit across the years increased from 2022 to 2023, but decreas
 :::
 
 ### 7.2 Claim Trend
-
-This section examines the temporal movement of portfolio profitability and claim behaviour across the observation years.
 
 ::: panel-tabset
 ## The plot
