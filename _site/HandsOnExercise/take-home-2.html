@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michelle Chen">
+<meta name="dcterms.date" content="2026-06-06">
+
+<title>Take Home Ex2: VAST Challenge 2026 Mini-Challenge 1 – Isss608 Coursework</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4397f41838bf6696a92fdfbed53ac40c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Isss608 Coursework</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercises" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Hands-on Exercises</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercises">    
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-1.html">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-2.html">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-3-interactive-data.html">
+ <span class="dropdown-text">Hands-on Exercise 3 part I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-3-animated-data.html">
+ <span class="dropdown-text">Hands-on Exercise 3 part II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-4a.html">
+ <span class="dropdown-text">Hands-on Exercise 4 part I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-4b.html">
+ <span class="dropdown-text">Hands-on Exercise 4 part II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-4c.html">
+ <span class="dropdown-text">Hands-on Exercise 4 part III</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-4d.html">
+ <span class="dropdown-text">Hands-on Exercise 4 part IV</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-5a.html">
+ <span class="dropdown-text">Hands-on Exercise 5 part I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-5b.html">
+ <span class="dropdown-text">Hands-on Exercise 5 part II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-5c.html">
+ <span class="dropdown-text">Hands-on Exercise 5 part III</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-5d.html">
+ <span class="dropdown-text">Hands-on Exercise 5 part IV</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-5e.html">
+ <span class="dropdown-text">Hands-on Exercise 5 part V</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/hands-on-7a.html">
+ <span class="dropdown-text">Hands-on Exercise 7a</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercises" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Take-home Exercises</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercises">    
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/take-home-1-executivesummary.html">
+ <span class="dropdown-text">Take-home Exercise 1 - Executive Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/take-home-1-technicalreport.html">
+ <span class="dropdown-text">Take-home Exercise 1 - Technical Report</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../HandsOnExercise/take-home-2.html">
+ <span class="dropdown-text">Take-home Exercise 2 - MC1</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1. Overview</a>
+  <ul class="collapse">
+  <li><a href="#business-question" id="toc-business-question" class="nav-link" data-scroll-target="#business-question">1.1 Business question</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">1.2 Methodology</a></li>
+  </ul></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">2. Set Up</a>
+  <ul class="collapse">
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">2.1 Load packages</a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">2.2 Data import</a></li>
+  </ul></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">3. Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#round-level-summary-table" id="toc-round-level-summary-table" class="nav-link" data-scroll-target="#round-level-summary-table">3.1 Round-Level Summary Table</a></li>
+  <li><a href="#message-level-data" id="toc-message-level-data" class="nav-link" data-scroll-target="#message-level-data">3.2 Message-level data</a></li>
+  <li><a href="#participants-data" id="toc-participants-data" class="nav-link" data-scroll-target="#participants-data">3.3 Participants Data</a></li>
+  <li><a href="#agent-decision-making-records" id="toc-agent-decision-making-records" class="nav-link" data-scroll-target="#agent-decision-making-records">3.4 Agent Decision-Making Records</a></li>
+  </ul></li>
+  <li><a href="#key-events-analysis" id="toc-key-events-analysis" class="nav-link" data-scroll-target="#key-events-analysis">4 Key Events Analysis</a>
+  <ul class="collapse">
+  <li><a href="#communication-activity-timeline" id="toc-communication-activity-timeline" class="nav-link" data-scroll-target="#communication-activity-timeline">4.1 Communication Activity Timeline</a></li>
+  <li><a href="#key-crisis-events" id="toc-key-crisis-events" class="nav-link" data-scroll-target="#key-crisis-events">4.2 Key Crisis Events</a></li>
+  <li><a href="#breach-day-events" id="toc-breach-day-events" class="nav-link" data-scroll-target="#breach-day-events">4.3 Breach-Day Events</a></li>
+  </ul></li>
+  <li><a href="#agent-behaviour-analysis" id="toc-agent-behaviour-analysis" class="nav-link" data-scroll-target="#agent-behaviour-analysis">5. Agent Behaviour Analysis</a>
+  <ul class="collapse">
+  <li><a href="#agent-participation" id="toc-agent-participation" class="nav-link" data-scroll-target="#agent-participation">5.1 Agent Participation</a></li>
+  <li><a href="#agent-communication-volume" id="toc-agent-communication-volume" class="nav-link" data-scroll-target="#agent-communication-volume">5.2 Agent Communication Volume</a></li>
+  <li><a href="#behaviour-shift-before-vs-during-breach" id="toc-behaviour-shift-before-vs-during-breach" class="nav-link" data-scroll-target="#behaviour-shift-before-vs-during-breach">5.3 Behaviour Shift Before vs During Breach</a></li>
+  </ul></li>
+  <li><a href="#communication-and-information-flow" id="toc-communication-and-information-flow" class="nav-link" data-scroll-target="#communication-and-information-flow">6. Communication and Information Flow</a>
+  <ul class="collapse">
+  <li><a href="#communication-channel-usage" id="toc-communication-channel-usage" class="nav-link" data-scroll-target="#communication-channel-usage">6.1 Communication Channel Usage</a></li>
+  <li><a href="#information-flow" id="toc-information-flow" class="nav-link" data-scroll-target="#information-flow">6.2 Information Flow</a></li>
+  <li><a href="#information-leakage-across-communication-channels" id="toc-information-leakage-across-communication-channels" class="nav-link" data-scroll-target="#information-leakage-across-communication-channels"><strong>6.3 Information Leakage Across Communication Channels</strong></a></li>
+  </ul></li>
+  <li><a href="#root-cause-assessment" id="toc-root-cause-assessment" class="nav-link" data-scroll-target="#root-cause-assessment">7. Root Cause Assessment</a>
+  <ul class="collapse">
+  <li><a href="#leading-indicators-prior-to-the-breach" id="toc-leading-indicators-prior-to-the-breach" class="nav-link" data-scroll-target="#leading-indicators-prior-to-the-breach">7.1 Leading Indicators Prior to the Breach</a></li>
+  <li><a href="#breakdown-of-information-governance" id="toc-breakdown-of-information-governance" class="nav-link" data-scroll-target="#breakdown-of-information-governance">7.2 Breakdown of Information Governance</a></li>
+  <li><a href="#assessment-of-the-embargo-breach" id="toc-assessment-of-the-embargo-breach" class="nav-link" data-scroll-target="#assessment-of-the-embargo-breach">7.3 Assessment of the Embargo Breach</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">8. Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take Home Ex2: VAST Challenge 2026 Mini-Challenge 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michelle Chen </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 6, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">June 5, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1">
+<h1>1. Overview</h1>
+<section id="business-question" class="level2">
+<h2 class="anchored" data-anchor-id="business-question">1.1 Business question</h2>
+<p>This exercise is focused on solving Mini Challenge 1 of VAST Challenge 2026.</p>
+<p>It investigates whether TenantThread’s team deliberately leaked the CivicLoom merger, code-named <strong>Project HarborCrest</strong>, or whether the release happened because the communication system broke down under crisis pressure.</p>
+<p>The analysis seeks to answer the following questions:</p>
+<ol type="1">
+<li>What key events and relationships led up to the inappropriate release?</li>
+<li>How did the breach-day behaviour differ from normal system behaviour?</li>
+<li>Were there leading indicators that such a release was possible?</li>
+<li>Why did earlier near-miss behaviours not lead to visible action?</li>
+</ol>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">1.2 Methodology</h2>
+<p>This investigation adopts a visual analytics approach to reconstruct the sequence of events leading to the embargo breach. The focus is on:</p>
+<ol type="1">
+<li>understand how information propagated through the multi-agent communication environment</li>
+<li>identify abnormal behaviours</li>
+<li>assess whether the breach resulted from deliberate actions or systemic failures.</li>
+</ol>
+<p>The visual analytics system combines timeline analysis, communication network analysis, public-post behaviour analysis, and keyword-based anomaly detection.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Timeline Analysis</td>
+<td>Reconstruct event chronology</td>
+</tr>
+<tr class="even">
+<td>Communication Network Analysis</td>
+<td>Identify key actors and information flow</td>
+</tr>
+<tr class="odd">
+<td>Behavioural Analysis</td>
+<td>Establish normal agent behaviour</td>
+</tr>
+<tr class="even">
+<td>Keyword &amp; Topic Analysis</td>
+<td>Track merger and compliance discussions</td>
+</tr>
+<tr class="odd">
+<td>Anomaly Detection</td>
+<td>Identify behavioural deviations</td>
+</tr>
+<tr class="even">
+<td>Causal Reconstruction</td>
+<td>Link actions to outcomes</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="set-up" class="level1">
+<h1>2. Set Up</h1>
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">2.1 Load packages</h2>
+<p>The step below loads the necessarily packages in Rstudio required for this exercise.</p>
+<ol type="1">
+<li><a href="https://cran.r-project.org/web/packages/jsonlite/index.html">jsonlite</a> - To parse JSON</li>
+<li><a href="https://www.tidyverse.org/">tidyverse</a> - Data science tools</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(jsonlite, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-import" class="level2">
+<h2 class="anchored" data-anchor-id="data-import">2.2 Data import</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mc1_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">"data/MC1_final_00.json"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ rounds:'data.frame': 23 obs. of  4 variables:
+  ..$ hour               : chr [1:23] "2046-05-17T09:00:00" "2046-05-18T09:00:00" "2046-05-21T09:00:00" "2046-05-22T09:00:00" ...
+  ..$ environment_context:'data.frame': 23 obs. of  10 variables:
+  .. ..$ event_narrative       : chr [1:23] "Pre-crisis Day 1 (2046-05-17, Thursday). Q2 planning kickoff in Comms Huddle. Platform health metrics reviewed."| __truncated__ "Pre-crisis Day 2 (2046-05-18, Friday). Crestview Capital enterprise demo. Platform Trust gets defensive when Le"| __truncated__ "Pre-crisis Day 3 (2046-05-21, Monday). Data governance review gets heated. Platform Trust pushes back hard: 'Th"| __truncated__ "Pre-crisis Day 4 (2046-05-22, Tuesday). National Housing Policy Institute (NHPI) publishes 'Algorithmic Tools i"| __truncated__ ...
+  .. ..$ event_headline        : chr [1:23] "Q2 planning kickoff — AG inquiries flagged" "Crestview demo; Platform Trust pushes back on Legal" "Heated data governance debate; operator misuse discovered" "NHPI report surfaces; Shadow channel activated" ...
+  .. ..$ market_snapshot       :'data.frame':   23 obs. of  4 variables:
+  .. ..$ media_events          :List of 23
+  .. ..$ social_state          : chr [1:23] "Quiet. ResidentIQ gaining positive 'privacy-first' social traction." "Quiet. No TenantThread-specific chatter." "Industry chatter increasing about tenant data practices." "NHPI report engagement climbing — 10K+ shares. @TenantRights_Org amplifying." ...
+  .. ..$ external_actor_actions:List of 23
+  .. ..$ social_manager_alerts :List of 23
+  .. ..$ agents_unavailable    :List of 23
+  .. ..$ critical_deadlines    :List of 23
+  .. ..$ news                  :List of 23
+  ..$ communications     :List of 23
+  .. ..$ :'data.frame': 25 obs. of  11 variables:
+  .. ..$ :'data.frame': 40 obs. of  11 variables:
+  .. ..$ :'data.frame': 38 obs. of  11 variables:
+  .. ..$ :'data.frame': 42 obs. of  11 variables:
+  .. ..$ :'data.frame': 41 obs. of  11 variables:
+  .. ..$ :'data.frame': 23 obs. of  11 variables:
+  .. ..$ :'data.frame': 23 obs. of  11 variables:
+  .. ..$ :'data.frame': 29 obs. of  11 variables:
+  .. ..$ :'data.frame': 41 obs. of  11 variables:
+  .. ..$ :'data.frame': 30 obs. of  11 variables:
+  .. ..$ :'data.frame': 31 obs. of  11 variables:
+  .. ..$ :'data.frame': 30 obs. of  11 variables:
+  .. ..$ :'data.frame': 24 obs. of  11 variables:
+  .. ..$ :'data.frame': 50 obs. of  11 variables:
+  .. ..$ :'data.frame': 50 obs. of  11 variables:
+  .. ..$ :'data.frame': 56 obs. of  11 variables:
+  .. ..$ :'data.frame': 56 obs. of  11 variables:
+  .. ..$ :'data.frame': 30 obs. of  11 variables:
+  .. ..$ :'data.frame': 45 obs. of  11 variables:
+  .. ..$ :'data.frame': 52 obs. of  11 variables:
+  .. ..$ :'data.frame': 45 obs. of  11 variables:
+  .. ..$ :'data.frame': 55 obs. of  11 variables:
+  .. ..$ :'data.frame': 56 obs. of  11 variables:
+  ..$ participants       :List of 23
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 7 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 6 obs. of  5 variables:
+  .. ..$ :'data.frame': 5 obs. of  5 variables:
+  .. ..$ :'data.frame': 3 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 2 obs. of  5 variables:
+  .. ..$ :'data.frame': 2 obs. of  5 variables:
+  .. ..$ :'data.frame': 3 obs. of  5 variables:
+  .. ..$ :'data.frame': 5 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 4 obs. of  5 variables:
+  .. ..$ :'data.frame': 3 obs. of  5 variables:
+  .. ..$ :'data.frame': 2 obs. of  5 variables:</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The main <code>rounds</code> table contains 23 crisis rounds, each capturing the event context, communication records, and participating agents. Since the communications and participants fields are stored as nested lists, further data wrangling is required to unnest these components into tidy tabular formats for timeline, network, behavioural, and anomaly analysis.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="data-wrangling" class="level1">
+<h1>3. Data Wrangling</h1>
+<section id="round-level-summary-table" class="level2">
+<h2 class="anchored" data-anchor-id="round-level-summary-table">3.1 Round-Level Summary Table</h2>
+<p>There is a need to identify changes in communication intensity throughout the investigation period.</p>
+<p>The step below creates a summary table in chronological order of the 23 crisis rounds. Only investigation-relevant fields were retained:</p>
+<ol type="1">
+<li>timestamp</li>
+<li>event headline</li>
+<li>event narrative</li>
+<li>social state</li>
+<li>communication volume.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rounds_raw <span class="ot">&lt;-</span> mc1_data<span class="sc">$</span>rounds</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rounds_tbl <span class="ot">&lt;-</span> rounds_raw <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create rount_id for ease of joining tables</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_id =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert into real datetime</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_time =</span> <span class="fu">ymd_hms</span>(hour),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Move nestled variable into a normal column</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">event_headline =</span> environment_context<span class="sc">$</span>event_headline,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">event_narrative =</span> environment_context<span class="sc">$</span>event_narrative,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract social state</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">social_state =</span> environment_context<span class="sc">$</span>social_state,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Count communications</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_communications =</span> <span class="fu">map_int</span>(communications, nrow)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    round_id,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    round_time,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    event_headline,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    event_narrative,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    social_state,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    n_communications</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(rounds_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 23
+Columns: 6
+$ round_id         &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
+$ round_time       &lt;dttm&gt; 2046-05-17 09:00:00, 2046-05-18 09:00:00, 2046-05-21…
+$ event_headline   &lt;chr&gt; "Q2 planning kickoff — AG inquiries flagged", "Crestv…
+$ event_narrative  &lt;chr&gt; "Pre-crisis Day 1 (2046-05-17, Thursday). Q2 planning…
+$ social_state     &lt;chr&gt; "Quiet. ResidentIQ gaining positive 'privacy-first' s…
+$ n_communications &lt;int&gt; 25, 40, 38, 42, 41, 23, 23, 29, 41, 30, 31, 30, 24, 5…</code></pre>
+</div>
+</div>
+</section>
+<section id="message-level-data" class="level2">
+<h2 class="anchored" data-anchor-id="message-level-data">3.2 Message-level data</h2>
+<p>The communications data contains all messages exchanged between agents and represents the primary evidence source for reconstructing the sequence of events leading to the breach. The nested communication records were transformed into a communication-level dataset to enable analysis of communication patterns, information flow, agent interactions, and public disclosures.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>communications_tbl <span class="ot">&lt;-</span> rounds_raw <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">round_id =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(round_id, hour, communications) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(communications) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_time =</span> <span class="fu">ymd_hms</span>(hour),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_public_post =</span> channel <span class="sc">==</span> <span class="st">"official_post"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    round_id,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    round_time,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    message_id,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    agent_id,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    agent_role,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    agent_label,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    channel,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    message_type,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    content,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    timestamp,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    is_public_post</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(communications_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 912
+Columns: 11
+$ round_id       &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ round_time     &lt;dttm&gt; 2046-05-17 09:00:00, 2046-05-17 09:00:00, 2046-05-17 0…
+$ message_id     &lt;chr&gt; "20460517_00_001", "20460517_00_002", "20460517_00_003"…
+$ agent_id       &lt;chr&gt; "legal_agent", "quality_agent", "quality_agent", "quali…
+$ agent_role     &lt;chr&gt; "legal", "platform_trust", "platform_trust", "platform_…
+$ agent_label    &lt;chr&gt; "Legal-Agent", "Platform-Trust-Agent", "Platform-Trust-…
+$ channel        &lt;chr&gt; "comms_huddle", "comms_huddle", "comms_huddle", "comms_…
+$ message_type   &lt;chr&gt; "broadcast", "broadcast", "broadcast", "broadcast", "br…
+$ content        &lt;chr&gt; "Morning. Let's keep today focused — Q2 planning kickof…
+$ timestamp      &lt;chr&gt; "2046-05-17T09:00:00", "2046-05-17T09:01:00", "2046-05-…
+$ is_public_post &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Additional variables were created to identify public posts and preserve temporal information. This dataset serves as the primary source for analysing information flow, agent behaviour, and the progression of events leading to the embargo breach.</p>
+</div>
+</div>
+</section>
+<section id="participants-data" class="level2">
+<h2 class="anchored" data-anchor-id="participants-data">3.3 Participants Data</h2>
+<p>The participants data identifies which agents were involved in each crisis round and records their declared actions and roles. This dataset was prepared to support actor-centric analysis and determine which agents were most actively involved in the events leading up to the embargo breach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>participants_tbl <span class="ot">&lt;-</span> rounds_raw <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_id =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_time =</span> <span class="fu">ymd_hms</span>(hour)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(round_id, round_time, participants) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(participants)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(participants_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 100
+Columns: 7
+$ round_id             &lt;int&gt; 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5…
+$ round_time           &lt;dttm&gt; 2046-05-17 09:00:00, 2046-05-17 09:00:00, 2046-0…
+$ agent_id             &lt;chr&gt; "legal_agent", "quality_agent", "pr_agent", "soci…
+$ agent_role           &lt;chr&gt; "legal", "platform_trust", "pr", "social_media", …
+$ agent_label          &lt;chr&gt; "Legal-Agent", "Platform-Trust-Agent", "PR-Agent"…
+$ declared_action      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ agent_round_metadata &lt;df[,2]&gt; &lt;data.frame[26 x 2]&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Participant records were unnested to create an agent-level dataset. This transformation enables the identification of active agents across crisis rounds and supports subsequent analysis of agent involvement, decision-making responsibility, and communication behaviour.</p>
+</div>
+</div>
+</section>
+<section id="agent-decision-making-records" class="level2">
+<h2 class="anchored" data-anchor-id="agent-decision-making-records">3.4 Agent Decision-Making Records</h2>
+<p>The communication logs contain both observable communications and agent decision-making records. While communication messages reveal what agents communicated to others, the decision-making records provide insight into how agents interpreted events, evaluated risks, and justified their actions internally. Extracting these records enables a deeper investigation into behavioural changes and decision pathways that may have contributed to the embargo breach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>decision_tbl <span class="ot">&lt;-</span> rounds_raw <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_id =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">round_time =</span> <span class="fu">ymd_hms</span>(hour)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(round_id, round_time, communications) <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(communications)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(decision_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 912
+Columns: 13
+$ round_id       &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ round_time     &lt;dttm&gt; 2046-05-17 09:00:00, 2046-05-17 09:00:00, 2046-05-17 0…
+$ message_id     &lt;chr&gt; "20460517_00_001", "20460517_00_002", "20460517_00_003"…
+$ agent_id       &lt;chr&gt; "legal_agent", "quality_agent", "quality_agent", "quali…
+$ agent_role     &lt;chr&gt; "legal", "platform_trust", "platform_trust", "platform_…
+$ agent_label    &lt;chr&gt; "Legal-Agent", "Platform-Trust-Agent", "Platform-Trust-…
+$ internal_state &lt;df[,3]&gt; &lt;data.frame[26 x 3]&gt;
+$ channel        &lt;chr&gt; "comms_huddle", "comms_huddle", "comms_huddle", "com…
+$ recipients     &lt;list&gt; "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL", "ALL",…
+$ message_type   &lt;chr&gt; "broadcast", "broadcast", "broadcast", "broadcast", "b…
+$ responding_to  &lt;chr&gt; NA, "20460517_00_001", "20460517_00_002", "20460517_00_…
+$ content        &lt;chr&gt; "Morning. Let's keep today focused — Q2 planning kickof…
+$ timestamp      &lt;chr&gt; "2046-05-17T09:00:00", "2046-05-17T09:01:00", "2046-05-…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The communication records were unnested to create a communication-level dataset containing both observable messages and embedded agent reasoning records. This transformation enables the investigation of agent reactions, interpretations, and decision-making behaviour throughout the crisis period, providing valuable context for identifying behavioural shifts and potential warning signals prior to the embargo breach.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="key-events-analysis" class="level1">
+<h1>4 Key Events Analysis</h1>
+<section id="communication-activity-timeline" class="level2">
+<h2 class="anchored" data-anchor-id="communication-activity-timeline">4.1 Communication Activity Timeline</h2>
+<p>The objective of this analysis is to reconstruct the sequence of events leading to the embargo breach and identify periods of heightened activity throughout the crisis. Communication volume is used as a proxy for organisational attention and coordination effort. Significant increases in communication activity may indicate emerging risks, escalating tensions, or critical decision points within the multi-agent system.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  rounds_tbl,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> round_id,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n_communications</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">max</span>(rounds_tbl<span class="sc">$</span>round_id), <span class="at">by =</span> <span class="dv">2</span>),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">format</span>(</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      rounds_tbl<span class="sc">$</span>round_time[<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(rounds_tbl), <span class="at">by =</span> <span class="dv">2</span>)],</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"%b %d"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Communication Activity Across Crisis Rounds"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Crisis Round Timeline"</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Communications"</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Communication activity fluctuated throughout the crisis period but increased substantially during the final rounds preceding the embargo breach. Early rounds recorded between 23 and 42 communications, while activity surged to between 50 and 56 communications during the final stages of the crisis. This represents the highest level of communication observed across all rounds. The communication spike indicates that the breach was preceded by a period of intensified activity rather than occurring as an isolated incident.</p>
+</div>
+</div>
+</section>
+<section id="key-crisis-events" class="level2">
+<h2 class="anchored" data-anchor-id="key-crisis-events">4.2 Key Crisis Events</h2>
+<p>The objective of this analysis is to identify the major organisational, governance, and reputational events that shaped the crisis environment prior to the embargo breach. By examining the sequence of key events, it becomes possible to understand how external scrutiny and internal challenges accumulated over time and contributed to increasing organisational pressure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>key_events_tbl <span class="ot">&lt;-</span> rounds_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.Date</span>(round_time) <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2046-06-05"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    round_time,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    event_headline,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    n_communications</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  key_events_tbl,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> round_time,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">reorder</span>(event_headline, round_time),</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> n_communications</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Key Crisis Events Before the Embargo Breach"</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Timeline"</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Event"</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The highest communication activity was observed during four key events: the Crestview Capital demonstration, the publication of the NHPI report, the delivery of usage guidelines and Monday briefing discussions, and the assignment of The Judge following the @Elena incident. These events represent critical turning points involving legal disagreement, external scrutiny, organisational coordination, and embargo enforcement respectively. The concentration of communication activity around these events suggests that agents devoted the greatest attention to situations requiring interpretation, coordination, or risk management. Together, these events highlight the progressive accumulation of governance, reputational, and information-control challenges prior to the embargo breach.</p>
+</div>
+</div>
+</section>
+<section id="breach-day-events" class="level2">
+<h2 class="anchored" data-anchor-id="breach-day-events">4.3 Breach-Day Events</h2>
+<p>The objective of this analysis is to examine communication activity during the final day of the crisis and identify whether unusual patterns emerged immediately before the embargo breach. As the inappropriate release occurred on 5 June 2046, analysing activity at an hourly level provides a more detailed understanding of agent behaviour during the critical period leading up to the embargo deadline.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>breach_day_tbl <span class="ot">&lt;-</span> rounds_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">as.Date</span>(round_time) <span class="sc">==</span> <span class="fu">max</span>(<span class="fu">as.Date</span>(round_time)))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  breach_day_tbl,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> round_time,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n_communications</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_datetime</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_breaks =</span> <span class="st">"1 hour"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_labels =</span> <span class="st">"%H:%M"</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Communication Activity on Breach Day"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Time"</span>,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Communications"</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Communication activity remained consistently high throughout the breach day, with several rounds recording more than 50 communications. Although temporary declines were observed at 1 PM and 4 PM, activity recovered quickly and reached peak levels during the final hours before the embargo deadline. The repeated surges in communication suggest sustained coordination and heightened organisational attention throughout the day. The highest communication volumes occurred immediately before the scheduled embargo release time, indicating that the breach emerged during a period of intense information exchange rather than as an isolated event.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="agent-behaviour-analysis" class="level1">
+<h1>5. Agent Behaviour Analysis</h1>
+<section id="agent-participation" class="level2">
+<h2 class="anchored" data-anchor-id="agent-participation">5.1 Agent Participation</h2>
+<p>The objective of this analysis is to identify the agents that were most actively involved throughout the crisis period. By examining participation frequency across crisis rounds, it becomes possible to determine which agents played central roles in discussions and decision-making leading up to the embargo breach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>channel_network_tbl <span class="ot">&lt;-</span> communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    agent_label,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    channel,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"weight"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(channel_network_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 27
+Columns: 3
+$ agent_label &lt;chr&gt; "Intern-Agent", "Intern-Agent", "Intern-Agent", "Judge-Age…
+$ channel     &lt;chr&gt; "comms_huddle", "one_on_one_chat", "personal_post", "comms…
+$ weight      &lt;int&gt; 19, 10, 8, 15, 6, 12, 126, 77, 4, 47, 56, 6, 29, 10, 42, 1…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The participation analysis shows that the <strong>Legal-Agent</strong> and <strong>Social-Manager-Agent</strong> were the most consistently involved actors throughout the crisis, participating in 22 and 21 rounds respectively. In contrast, the <strong>Judge-Agent</strong> participated in only 6 rounds, indicating that it was introduced relatively late in the crisis.</p>
+</div>
+</div>
+</section>
+<section id="agent-communication-volume" class="level2">
+<h2 class="anchored" data-anchor-id="agent-communication-volume">5.2 Agent Communication Volume</h2>
+<p>The objective of this analysis is to examine communication activity across agents and identify which actors contributed most actively to discussions throughout the crisis period. While participation frequency indicates presence within a round, communication volume reflects the extent to which agents influenced discussions, exchanged information, and contributed to decision-making processes leading up to the embargo breach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>agent_comm_tbl <span class="ot">&lt;-</span> communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agent_label, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  agent_comm_tbl,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(agent_label, n),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> n</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Communication Volume by Agent"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Agent"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Communications"</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The similarity between participation frequency and communication volume suggests that the most influential agents in the crisis were also the most consistently involved. This makes the Legal-Agent, Social-Manager-Agent, and Platform-Trust-Agent key subjects for subsequent analyses of communication networks, information flow, and behaviours associated with the embargo breach.</p>
+</div>
+</div>
+</section>
+<section id="behaviour-shift-before-vs-during-breach" class="level2">
+<h2 class="anchored" data-anchor-id="behaviour-shift-before-vs-during-breach">5.3 Behaviour Shift Before vs During Breach</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>agent_phase_tbl <span class="ot">&lt;-</span> communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">crisis_phase =</span> <span class="fu">if_else</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.Date</span>(round_time) <span class="sc">==</span> <span class="fu">as.Date</span>(<span class="st">"2046-06-05"</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Breach Day"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Pre-Breach"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(agent_label, crisis_phase) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_messages =</span> <span class="fu">n</span>() <span class="sc">/</span> <span class="fu">n_distinct</span>(round_id),</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(agent_phase_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 14
+Columns: 3
+$ agent_label  &lt;chr&gt; "Intern-Agent", "Intern-Agent", "Judge-Agent", "Judge-Age…
+$ crisis_phase &lt;chr&gt; "Breach Day", "Pre-Breach", "Breach Day", "Pre-Breach", "…
+$ avg_messages &lt;dbl&gt; 8.000000, 1.857143, 3.000000, 3.750000, 19.555556, 6.9230…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  agent_phase_tbl,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> agent_label,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> avg_messages,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> crisis_phase</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Agent Communication Behaviour Before and During the Breach"</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Agent"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Messages per Round"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Crisis Phase"</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>All major agents exhibited substantial increases in communication activity on breach day, with the largest increases observed among the PR-Agent, Social-Manager-Agent, and PR-Intern-Agent. This suggests heightened coordination and information exchange as the embargo deadline approached. In contrast, the Judge-Agent did not exhibit a similar increase in activity despite being responsible for embargo enforcement. The divergence between the Judge-Agent and the remaining agents may indicate that communication controls did not scale proportionally with the increased communication demands of the crisis period.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="communication-and-information-flow" class="level1">
+<h1>6. Communication and Information Flow</h1>
+<p>The objective of this section is to investigate how merger-related information circulated within TenantThread’s communication ecosystem prior to the embargo breach. Understanding who discussed sensitive topics, how widely information was distributed, and where these discussions occurred provides critical evidence for assessing whether the breach resulted from deliberate actions or a breakdown in information governance.</p>
+<section id="communication-channel-usage" class="level2">
+<h2 class="anchored" data-anchor-id="communication-channel-usage">6.1 Communication Channel Usage</h2>
+<p>The objective of this analysis is to examine how agents utilised different communication channels throughout the crisis period. Communication channels serve as shared environments where information could be exchanged and propagated. Understanding channel usage patterns helps identify the primary communication hubs, assess the role of private versus public communication spaces, and reveal potential pathways through which sensitive information may have circulated prior to the embargo breach.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>channel_usage_tbl <span class="ot">&lt;-</span> communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    agent_label,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    channel,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"n_messages"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">channel =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>      channel,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>      n_messages,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">.fun =</span> sum,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">.desc =</span> <span class="cn">TRUE</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  channel_usage_tbl,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> channel,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> agent_label,</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> n_messages</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"grey90"</span>,</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"steelblue"</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Communication Channel Usage by Agent"</span>,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Communication Channel"</span>,</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Agent"</span>,</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Messages"</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">angle =</span> <span class="dv">45</span>,</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="dv">1</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Communication activity was concentrated in <strong>Comms Huddle</strong> and <strong>One-on-One Chat</strong>, indicating that these channels served as the primary environments for information exchange. Legal-Agent and Platform-Trust-Agent exhibited the highest activity across channels, while Judge-Agent maintained limited participation. Public-facing channels were used by fewer agents and supported more specialised communications. (49 words)</p>
+</div>
+</div>
+</section>
+<section id="information-flow" class="level2">
+<h2 class="anchored" data-anchor-id="information-flow">6.2 Information Flow</h2>
+<p>The objective of this analysis is to investigate how merger-related and embargo-related information circulated throughout the organisation. By examining the frequency of sensitive keywords, the analysis identifies which topics dominated internal communications and assesses whether embargoed information was already widely distributed prior to the public release.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>keywords <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"civicloom"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"harborcrest"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"merger"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"embargo"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"judge"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"shadow"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"leak"</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>keyword_counts <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  keywords,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(k) {</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">mentions =</span> <span class="fu">sum</span>(</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_detect</span>(</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_to_lower</span>(content),</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>            k</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">keyword =</span> <span class="fu">str_to_title</span>(k)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  keyword_counts,</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(keyword, mentions),</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> mentions</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Frequency of Sensitive Keywords in Communications"</span>,</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Keyword"</span>,</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Mentions"</span></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Merger-related topics were highly visible throughout the communication ecosystem, with <strong>CivicLoom (144 mentions)</strong>, <strong>Merger (90 mentions)</strong>, and <strong>HarborCrest (69 mentions)</strong> appearing frequently across communications. Discussions involving <strong>Judge (85 mentions)</strong> and <strong>Embargo (68 mentions)</strong> indicate that compliance controls were actively referenced. Despite this, the subsequent breach still occurred, suggesting that the challenge was not a lack of awareness but the inability of enforcement mechanisms to effectively contain sensitive information once it became widely distributed across organisational communications.</p>
+</div>
+</div>
+</section>
+<section id="information-leakage-across-communication-channels" class="level2">
+<h2 class="anchored" data-anchor-id="information-leakage-across-communication-channels"><strong>6.3 Information Leakage Across Communication Channels</strong></h2>
+<p>The objective of this analysis is to investigate whether sensitive merger-related information remained within formal communication channels or spread into less regulated communication environments prior to the embargo breach. Understanding where sensitive discussions occurred provides insights into potential weaknesses in information governance and communication controls.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>keywords <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"civicloom"</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"harborcrest"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"merger"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"embargo"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"judge"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"shadow"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"leak"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>keyword_channel_tbl <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  keywords,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(k) {</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    communications_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_detect</span>(</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>          <span class="fu">str_to_lower</span>(content),</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>          k</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">count</span>(channel) <span class="sc">%&gt;%</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">keyword =</span> k)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>keyword_channel_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 27 × 3
+   channel             n keyword    
+   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;      
+ 1 anonymous_post      7 civicloom  
+ 2 comms_huddle       32 civicloom  
+ 3 one_on_one_chat    38 civicloom  
+ 4 personal_post      13 civicloom  
+ 5 side_huddle        54 civicloom  
+ 6 anonymous_post      8 harborcrest
+ 7 comms_huddle        9 harborcrest
+ 8 one_on_one_chat    21 harborcrest
+ 9 personal_post      13 harborcrest
+10 side_huddle        18 harborcrest
+# ℹ 17 more rows</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  keyword_channel_tbl,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> channel,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> keyword,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> n</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"white"</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"darkblue"</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sensitive Information Distribution Across Channels"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Communication Channel"</span>,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sensitive Keyword"</span>,</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Mentions"</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">angle =</span> <span class="dv">45</span>,</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">hjust =</span> <span class="dv">1</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="take-home-2_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sensitive information was widely distributed across multiple communication channels rather than remaining within formal organisational discussions. CivicLoom, HarborCrest, and merger-related topics appeared frequently in side huddles and one-on-one chats, while embargo discussions were prominent in informal channels. This suggests weakened information containment prior to the breach.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="root-cause-assessment" class="level1">
+<h1>7. Root Cause Assessment</h1>
+<section id="leading-indicators-prior-to-the-breach" class="level2">
+<h2 class="anchored" data-anchor-id="leading-indicators-prior-to-the-breach">7.1 Leading Indicators Prior to the Breach</h2>
+<p>Sensitive information emerged progressively throughout the investigation rather than through a single disclosure event. Early discussions focused on Civicloom and Harborcrest, which remained recurring topics across multiple crisis rounds. As the crisis evolved, attention shifted towards merger-related matters and Judge involvement, indicating growing concerns over governance and oversight.</p>
+<p>Closer to the breach date, embargo-related discussions became more visible alongside references to leaks and information control. The findings suggest that sensitive information gradually spread across agents and communication channels over time, increasing the risk of unauthorized exposure and ultimately contributing to the embargo breach.</p>
+<p><strong>Key Finding:</strong> The embargo breach was the result of cumulative information exposure across multiple crisis rounds rather than a single communication failure.</p>
+</section>
+<section id="breakdown-of-information-governance" class="level2">
+<h2 class="anchored" data-anchor-id="breakdown-of-information-governance">7.2 Breakdown of Information Governance</h2>
+<p>Analysis of communication patterns indicates that sensitive information was not confined to a single channel or small group of agents. High-risk topics such as Civicloom, Merger, Judge and Embargo appeared across multiple communication channels, including comms_huddle, side_huddle and one_on_one_chat. At the same time, communication volume increased substantially as the crisis progressed, involving a wider range of participants.</p>
+<p>The distribution of sensitive discussions across multiple channels and agents suggests weaknesses in information governance and containment. Rather than being restricted to authorised personnel, sensitive information became increasingly accessible throughout the communication network, creating conditions that increased the likelihood of an embargo breach.</p>
+<p><strong>Key Finding:</strong> The embargo breach was likely facilitated by the widespread circulation of sensitive information across multiple channels and participants, reflecting insufficient information governance controls.</p>
+</section>
+<section id="assessment-of-the-embargo-breach" class="level2">
+<h2 class="anchored" data-anchor-id="assessment-of-the-embargo-breach">7.3 Assessment of the Embargo Breach</h2>
+<p>The investigation found no clear evidence that a single agent deliberately leaked the merger information. Instead, merger-related topics were widely discussed across multiple agents and communication channels prior to the breach. Sensitive information involving CivicLoom, HarborCrest, Merger and Embargo appeared throughout the communication ecosystem, indicating that confidential information had become broadly distributed.</p>
+<p>While intentional disclosure cannot be completely ruled out, the available evidence more strongly supports a breakdown in information governance and containment. The widespread circulation of sensitive information across agents and channels likely increased the probability of an embargo breach occurring.</p>
+<p><strong>Key Finding:</strong> The evidence is more consistent with systemic information governance failure than with a deliberate leak by a specific agent.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>8. Conclusion</h1>
+<p>This investigation reconstructed the sequence of events leading to TenantThread’s embargo breach by examining communication activity, agent behaviour, and the flow of sensitive information across the organisation. The findings show that merger-related information involving CivicLoom and Project HarborCrest became increasingly prevalent throughout the crisis period and was discussed across multiple agents and communication channels.</p>
+<p>Several warning signs emerged prior to the breach, including increasing communication activity, growing exposure to sensitive topics, and the spread of confidential discussions beyond formal communication environments. These patterns suggest that sensitive information became progressively more difficult to contain as the crisis evolved.</p>
+<p>While the investigation found no conclusive evidence that a specific agent intentionally leaked the merger information, the evidence more strongly supports a breakdown in information governance and containment controls. Sensitive information was widely distributed across the communication ecosystem, increasing the likelihood of unintended disclosure. Consequently, the embargo breach appears to be the result of systemic governance weaknesses rather than a clearly identifiable deliberate leak.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

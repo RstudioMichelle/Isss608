@@ -35,12 +35,16 @@ website:
             file: HandsOnExercise/hands-on-5d.qmd 
           - text: "Hands-on Exercise 5 part V"
             file: HandsOnExercise/hands-on-5e.qmd 
+          - text: "Hands-on Exercise 7a"
+            file: HandsOnExercise/hands-on-7a.qmd
       - text: "Take-home Exercises"
         menu: 
           - text: "Take-home Exercise 1 - Executive Summary"
             file: HandsOnExercise/take-home-1-executivesummary.qmd
           - text: "Take-home Exercise 1 - Technical Report"
             file: HandsOnExercise/take-home-1-technicalreport.qmd
+          - text: "Take-home Exercise 2 - MC1"
+            file: HandsOnExercise/take-home-2.qmd
       - href: about.qmd
         text: About
 

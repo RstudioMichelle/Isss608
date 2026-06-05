@@ -53,15 +53,15 @@ The data.frame *realis2018* is in trasaction record form, which is disaggregated
 
 Grouping affects the verbs as follows:
 
--   grouped *select()* is the same as ungrouped *select()*, except that grouping variables are always retained.
+- grouped *select()* is the same as ungrouped *select()*, except that grouping variables are always retained.
 
--   grouped *arrange()* is the same as ungrouped; unless you set *.by_group = TRUE*, in which case it orders first by the grouping variables.
+- grouped *arrange()* is the same as ungrouped; unless you set *.by_group = TRUE*, in which case it orders first by the grouping variables.
 
--   *mutate()* and *filter()* are most useful in conjunction with window functions (like *rank()*, or *min(x) == x*). They are described in detail in vignette(“window-functions”).
+- *mutate()* and *filter()* are most useful in conjunction with window functions (like *rank()*, or *min(x) == x*). They are described in detail in vignette(“window-functions”).
 
--   *sample_n()* and *sample_frac()* sample the specified number/fraction of rows in each group.
+- *sample_n()* and *sample_frac()* sample the specified number/fraction of rows in each group.
 
--   *summarise()* computes the summary for each group.
+- *summarise()* computes the summary for each group.
 
 In our case, *group_by()* will be used together with *summarise()* to derive the summarised data.frame.
 
@@ -134,15 +134,15 @@ treemap(realis2018_selected,
 ::: callout-note
 Things to learn from the 3 arguments used:
 
--   index
+- index
 
-    -   The index vector must consist of at least two column names.
+  - The index vector must consist of at least two column names.
 
-    -   If multiple column names are provided, the first name is the highest aggregation level, the second name is the second highest aggregation level, and so on.
+  - If multiple column names are provided, the first name is the highest aggregation level, the second name is the second highest aggregation level, and so on.
 
--   vSize
+- vSize
 
-    -   The column must not contain negative values. This is because its vaues will be used to map the sizes of the rectangles of the treemaps.
+  - The column must not contain negative values. This is because its vaues will be used to map the sizes of the rectangles of the treemaps.
 :::
 
 ::: callout-warning
@@ -171,9 +171,9 @@ treemap(realis2018_selected,
 ::: callout-note
 Thinking to learn from the code above.
 
--   The rectangles are coloured with different intensity of green, reflecting their respective median unit prices.
+- The rectangles are coloured with different intensity of green, reflecting their respective median unit prices.
 
--   The legend reveals that the values are binned into ten bins, i.e. 0-5000, 5000-10000, etc. with an equal interval of 5000.
+- The legend reveals that the values are binned into ten bins, i.e. 0-5000, 5000-10000, etc. with an equal interval of 5000.
 :::
 
 ### **1.4.4 Colours in treemap package**
@@ -197,9 +197,9 @@ treemap(realis2018_selected,
 ::: callout-note
 Things to learn from the code above:
 
--   Although the colour palette used is RdYlBu, there are no red rectangles in the treemap above. This is because all the median unit prices are positive.
+- Although the colour palette used is RdYlBu, there are no red rectangles in the treemap above. This is because all the median unit prices are positive.
 
--   The reason why we see only 5000 to 45000 in the legend is because the *range* argument is by default (min(values, max(values)) with some pretty rounding.
+- The reason why we see only 5000 to 45000 in the legend is because the *range* argument is by default (min(values, max(values)) with some pretty rounding.
 :::
 
 ### **1.4.6 The “manual” type treemap**
@@ -221,7 +221,7 @@ treemap(realis2018_selected,
 ::: callout-note
 Things to learn from the code above:
 
--   The colour scheme used is very copnfusing. This is because mapping = (min(values), mean(range(values)), max(values)). It is not wise to use diverging colour palette such as *RdYlBu* if the values are all positive or negative
+- The colour scheme used is very copnfusing. This is because mapping = (min(values), mean(range(values)), max(values)). It is not wise to use diverging colour palette such as *RdYlBu* if the values are all positive or negative
 :::
 
 To overcome this problem, a single colour palette such as Blues should be used.
