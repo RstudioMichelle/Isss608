@@ -7,225 +7,168 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
+format:
+  html:
+    code-fold: true
 ---
 
 # 1. Overview
 
 ## 1.1 Business question
 
-This exercise is focused on solving Mini Challenge 1 of VAST Challenge 2026.
+This exercise is focused on solving [Mini Challenge 1](https://vast-challenge.github.io/2026/MC1.html) of VAST Challenge 2026.
 
-It investigates whether TenantThread's team deliberately leaked the CivicLoom merger, code-named **Project HarborCrest**, or whether the release happened because the communication system broke down under crisis pressure.
+It digs into TenantThread's internal communications from the two weeks leading up to the embargo breach and investigates whether the team deliberately leaked the CivicLoom merger - **Project HarborCrest**, or whether it happened because the communication system broke down under pressure.
 
 The analysis seeks to answer the following questions:
 
-1.  What key events and relationships led up to the inappropriate release?
-2.  How did the breach-day behaviour differ from normal system behaviour?
-3.  Were there leading indicators that such a release was possible?
-4.  Why did earlier near-miss behaviours not lead to visible action?
+1.  What were the key events and relationships that led up to the inappropriate release?
+2.  What are the typical behaviour of systems/agents/people involved and how does the behaviour that led to the release compare to the prior behaviors?
+3.  Were there leading indicators that such a release was possible and if yes, why didn't the prior occasions result in noticeable action?
 
 ## 1.2 Methodology
 
-This investigation adopts a visual analytics approach to reconstruct the sequence of events leading to the embargo breach. The focus is on:
+This investigation adopts a visual analytics approach to reconstruct the sequence of events leading up to the embargo breach. The analysis combines temporal, network, behavioural, and text analytics techniques to examine:
 
-1.  understand how information propagated through the multi-agent communication environment
-2.  identify abnormal behaviours
-3.  assess whether the breach resulted from deliberate actions or systemic failures.
+1.  understanding how information propagated through the multi-agent communication environment
+2.  identifying abnormal behaviours
+3.  assessing whether the breach resulted from deliberate actions or systemic failures.
 
-The visual analytics system combines timeline analysis, communication network analysis, public-post behaviour analysis, and keyword-based anomaly detection.
-
-| Method                         | Purpose                                  |
-|-------------------------------|-----------------------------------------|
-| Timeline Analysis              | Reconstruct event chronology             |
-| Communication Network Analysis | Identify key actors and information flow |
-| Behavioural Analysis           | Establish normal agent behaviour         |
-| Keyword & Topic Analysis       | Track merger and compliance discussions  |
-| Anomaly Detection              | Identify behavioural deviations          |
-| Causal Reconstruction          | Link actions to outcomes                 |
+| Analytical Method | Visual Analytics Technique | Investigation Objective |
+|:---------------|:---------------|:--------------------------------------|
+| Temporal Analysis | Timeline visualisation and communication volume analysis | Identify key events, communication surges, and activity patterns leading up to the breach |
+| Network Analysis | Agent-channel networks and peer-to-peer interaction networks | Examine information flow pathways and identify influential communication channels |
+| Behavioural Analysis | Agent activity comparison and channel usage comparison | Detect shifts in communication behaviour before and during the breach |
+| Text Analytics | Keyword tracking, sensitive topic analysis, and TF-IDF analysis | Identify leading indicators, trace the spread of sensitive information, and uncover agent-specific discussion themes |
 
 # 2. Set Up
 
 ## 2.1 Load packages
 
-The step below loads the necessarily packages in Rstudio required for this exercise.
-
-1.  [jsonlite](https://cran.r-project.org/web/packages/jsonlite/index.html) - To parse JSON
-2.  [tidyverse](https://www.tidyverse.org/) - Data science tools
+Several packages are required to support the analysis in this exercise. The step below loads the necessarily ones into Rstudio.
 
 ```{r}
-pacman::p_load(jsonlite, tidyverse)
+pacman::p_load(
+  jsonlite,     # Parse JSON schemas
+  tidyverse,    # For data wrangling 
+  tidytext,     # For TD-IDF
+  lubridate,    # Timeline manipulation
+  tidygraph,    # For relational network graphs
+  visNetwork,   # Interactive dynamic graph configurations
+  plotly,       # Advanced interactive charting layers
+)
 ```
 
 ## 2.2 Data import
 
+The dataset is imported directly from [Mini Challenge 1](https://vast-challenge.github.io/2026/MC1.html) of Vast Challenge 2016.
+
 ```{r}
-mc1_data <- fromJSON("data/MC1_final_00.json")
+mc1_data <- fromJSON("data/MC1_final_00.json", simplifyVector = FALSE)
 glimpse(mc1_data)
 ```
 
 ::: callout-note
-The main `rounds` table contains 23 crisis rounds, each capturing the event context, communication records, and participating agents. Since the communications and participants fields are stored as nested lists, further data wrangling is required to unnest these components into tidy tabular formats for timeline, network, behavioural, and anomaly analysis.
+There are a total of 23 crisis rounds, each capturing the event context, communication records, and participating agents. Since the communications and participants fields are stored as nested lists, further data wrangling is required to extract these details into a table format for deeper analysis.
 :::
 
 # 3. Data Wrangling
 
 ## 3.1 Round-Level Summary Table
 
-There is a need to identify changes in communication intensity throughout the investigation period.
-
-The step below creates a summary table in chronological order of the 23 crisis rounds. Only investigation-relevant fields were retained:
-
-1.  timestamp
-2.  event headline
-3.  event narrative
-4.  social state
-5.  communication volume.
+The step below transforms raw round-level JSON data into a flattened round-level summary table to facilitate analysis and trends thorught the investigation period. This table captures the key contextual information associated with each crisis round.
 
 ```{r}
-rounds_raw <- mc1_data$rounds
-rounds_tbl <- rounds_raw %>%
-  as_tibble() %>%
-  mutate(
-    # Create rount_id for ease of joining tables
-    round_id = row_number(),
-    # Convert into real datetime
-    round_time = ymd_hms(hour),
-    # Move nestled variable into a normal column
-    event_headline = environment_context$event_headline,
-    event_narrative = environment_context$event_narrative,
-    # Extract social state
-    social_state = environment_context$social_state,
-    # Count communications
-    n_communications = map_int(communications, nrow)
-  ) %>%
-  select(
-    round_id,
-    round_time,
-    event_headline,
-    event_narrative,
-    social_state,
-    n_communications
+rounds_tbl <- map_df(mc1_data$rounds, function(r) {
+  tibble(
+    round_id = r$round_id %||% NA_integer_,
+    round_time = ymd_hms(r$hour),
+    event_headline = r$environment_context$event_headline,
+    event_narrative = r$environment_context$event_narrative,
+    social_state = r$environment_context$social_state,
+    stock_price = as.numeric(str_remove(r$environment_context$market_snapshot$stock_price, "\\$")),
+    n_communications = length(r$communications)
   )
+}) %>%
+  mutate(round_id = row_number())
 
 glimpse(rounds_tbl)
 ```
 
-## 3.2 Message-level data
+## 3.2 Communication-Level Table
 
-The communications data contains all messages exchanged between agents and represents the primary evidence source for reconstructing the sequence of events leading to the breach. The nested communication records were transformed into a communication-level dataset to enable analysis of communication patterns, information flow, agent interactions, and public disclosures.
+A communication-level table is also constructed by extracting all communication records from the simulation logs. It captures the content, timing, participants, communication channels, and internal delibrations associated with each message. This table will be used to analyse behavioural, network, and keyword investigations.
 
 ```{r}
-communications_tbl <- rounds_raw %>%
-  as_tibble() %>%
-  mutate(round_id = row_number()) %>%
-  select(round_id, hour, communications) %>%
-  unnest(communications) %>%
+communications_tbl <- map_df(mc1_data$rounds, function(r) {
+  map_df(r$communications, function(c) {
+    tibble(
+      round_id = r$round_id %||% NA_integer_,
+      round_time = ymd_hms(r$hour),
+      timestamp = ymd_hms(c$timestamp),
+      message_id = c$message_id %||% NA_character_,
+      agent_id = c$agent_id %||% NA_character_,
+      agent_role = c$agent_role %||% NA_character_,
+      agent_label = c$agent_label %||% NA_character_,
+      channel = c$channel %||% NA_character_,
+      message_type = c$message_type %||% NA_character_,
+      content = c$content %||% NA_character_,
+      recipients = list(c$recipients %||% character(0)),
+      deliberation = c$internal_state$deliberating %||% NA_character_,
+      rationalization = c$internal_state$rationalizing %||% NA_character_
+    )
+  })
+}) %>%
   mutate(
-    round_time = ymd_hms(hour),
-    is_public_post = channel == "official_post"
-  ) %>%
-  select(
-    round_id,
-    round_time,
-    message_id,
-    agent_id,
-    agent_role,
-    agent_label,
-    channel,
-    message_type,
-    content,
-    timestamp,
-    is_public_post
+    round_id = if_else(is.na(round_id), dense_rank(round_time), round_id),
+    round_date = as.Date(timestamp),
+    content_lower = str_to_lower(content),
+    internal_text = str_c(deliberation, rationalization, sep = " ")
   )
 
 glimpse(communications_tbl)
 ```
 
-::: callout-note
-Additional variables were created to identify public posts and preserve temporal information. This dataset serves as the primary source for analysing information flow, agent behaviour, and the progression of events leading to the embargo breach.
-:::
+## 3.3 Network Nodes and Edges
 
-## 3.3 Participants Data
-
-The participants data identifies which agents were involved in each crisis round and records their declared actions and roles. This dataset was prepared to support actor-centric analysis and determine which agents were most actively involved in the events leading up to the embargo breach.
+This section transforms message records into a direct agent-channel network. This facilitates the analysis of how information moved through TenantThread’s communication system. Agents were treated as source nodes, communication channels as target nodes, and message counts as weighted edges.
 
 ```{r}
-participants_tbl <- rounds_raw %>%
-  as_tibble() %>%
+edges_tbl <- communications_tbl %>%
+  filter(!is.na(channel), !is.na(agent_label)) %>%
+  count(agent_label, channel, name = "weight") %>%
+  rename(from = agent_label, to = channel)
+
+nodes_tbl <- tibble(
+  id = unique(c(edges_tbl$from, edges_tbl$to))
+) %>%
   mutate(
-    round_id = row_number(),
-    round_time = ymd_hms(hour)
-  ) %>%
-  select(round_id, round_time, participants) %>%
-  unnest(participants)
-
-glimpse(participants_tbl)
-```
-
-::: callout-note
-Participant records were unnested to create an agent-level dataset. This transformation enables the identification of active agents across crisis rounds and supports subsequent analysis of agent involvement, decision-making responsibility, and communication behaviour.
-:::
-
-## 3.4 Agent Decision-Making Records
-
-The communication logs contain both observable communications and agent decision-making records. While communication messages reveal what agents communicated to others, the decision-making records provide insight into how agents interpreted events, evaluated risks, and justified their actions internally. Extracting these records enables a deeper investigation into behavioural changes and decision pathways that may have contributed to the embargo breach.
-
-```{r}
-decision_tbl <- rounds_raw %>%
-  as_tibble() %>%
-  mutate(
-    round_id = row_number(),
-    round_time = ymd_hms(hour)
-  ) %>%
-  select(round_id, round_time, communications) %>%
-  unnest(communications)
-
-glimpse(decision_tbl)
-```
-
-::: callout-note
-The communication records were unnested to create a communication-level dataset containing both observable messages and embedded agent reasoning records. This transformation enables the investigation of agent reactions, interpretations, and decision-making behaviour throughout the crisis period, providing valuable context for identifying behavioural shifts and potential warning signals prior to the embargo breach.
-:::
-
-# 4 Key Events Analysis
-
-## 4.1 Communication Activity Timeline
-
-The objective of this analysis is to reconstruct the sequence of events leading to the embargo breach and identify periods of heightened activity throughout the crisis. Communication volume is used as a proxy for organisational attention and coordination effort. Significant increases in communication activity may indicate emerging risks, escalating tensions, or critical decision points within the multi-agent system.
-
-```{r}
-ggplot(
-  rounds_tbl,
-  aes(
-    x = round_id,
-    y = n_communications
+    type = if_else(id %in% edges_tbl$from, "Agent", "Channel"),
+    group = type,
+    label = id
   )
-) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(
-    breaks = seq(1, max(rounds_tbl$round_id), by = 2),
-    labels = format(
-      rounds_tbl$round_time[seq(1, nrow(rounds_tbl), by = 2)],
-      "%b %d"
-    )
-  ) +
-  labs(
-    title = "Communication Activity Across Crisis Rounds",
-    x = "Crisis Round Timeline",
-    y = "Number of Communications"
-  ) +
-  theme_minimal()
+
+comms_graph <- tbl_graph(
+  nodes = nodes_tbl,
+  edges = edges_tbl,
+  directed = TRUE
+) %>%
+  activate(nodes) %>%
+  mutate(
+    degree_centrality = centrality_degree(mode = "all"),
+    betweenness_stat = centrality_betweenness()
+  )
+
+glimpse(nodes_tbl)
+glimpse(edges_tbl)
 ```
 
-::: callout-note
-Communication activity fluctuated throughout the crisis period but increased substantially during the final rounds preceding the embargo breach. Early rounds recorded between 23 and 42 communications, while activity surged to between 50 and 56 communications during the final stages of the crisis. This represents the highest level of communication observed across all rounds. The communication spike indicates that the breach was preceded by a period of intensified activity rather than occurring as an isolated incident.
-:::
+# 4 Key Events and Relationships Leading to the Embargo Breach
 
-## 4.2 Key Crisis Events
+## 4.1 Identify Key Events
 
-The objective of this analysis is to identify the major organisational, governance, and reputational events that shaped the crisis environment prior to the embargo breach. By examining the sequence of key events, it becomes possible to understand how external scrutiny and internal challenges accumulated over time and contributed to increasing organisational pressure.
+First, it is important to identify major organisational, governance, and reputational events that occurred before the embargo breach. Communication volume is used to highlight events that generated significant attention and response.
 
 ```{r}
 key_events_tbl <- rounds_tbl %>%
@@ -246,7 +189,7 @@ ggplot(
 ) +
   geom_point() +
   labs(
-    title = "Key Crisis Events Before the Embargo Breach",
+    title = "Key Events Before Embargo Breach",
     x = "Timeline",
     y = "Event"
   ) +
@@ -254,293 +197,447 @@ ggplot(
 ```
 
 ::: callout-note
-The highest communication activity was observed during four key events: the Crestview Capital demonstration, the publication of the NHPI report, the delivery of usage guidelines and Monday briefing discussions, and the assignment of The Judge following the \@Elena incident. These events represent critical turning points involving legal disagreement, external scrutiny, organisational coordination, and embargo enforcement respectively. The concentration of communication activity around these events suggests that agents devoted the greatest attention to situations requiring interpretation, coordination, or risk management. Together, these events highlight the progressive accumulation of governance, reputational, and information-control challenges prior to the embargo breach.
+Each round in the dataset was anchored by a dominant organisational event. Based on the events listed, external scrutiny progressively intensifies during the two weeks period. Notably, events such as the Crestview demo, NHPI report, usage guidelines delivery, the deployment of Judge, and the SaltWind Pieces generated significant communication spikes - 35 to 40. The system was operating under increasing pressure from both external events and heightened communication levels.
 :::
 
-## 4.3 Breach-Day Events
+## 4.2 Breach Day Communication Trend
 
-The objective of this analysis is to examine communication activity during the final day of the crisis and identify whether unusual patterns emerged immediately before the embargo breach. As the inappropriate release occurred on 5 June 2046, analysing activity at an hourly level provides a more detailed understanding of agent behaviour during the critical period leading up to the embargo deadline.
+Next, the analysis takes a closer look into the communication volume during breach day.
 
 ```{r}
-breach_day_tbl <- rounds_tbl %>%
-  filter(as.Date(round_time) == max(as.Date(round_time)))
+breach_day_tbl <- communications_tbl %>%
+  filter(round_date == as.Date("2046-06-05")) %>%
+  mutate(
+    hour = lubridate::floor_date(timestamp, "hour")
+  ) %>%
+  count(hour)
+
+plot_ly(
+  data = breach_day_tbl,
+  x = ~hour,
+  y = ~n,
+  type = "scatter",
+  mode = "lines+markers",
+  hovertemplate =
+    paste(
+      "<b>Time:</b> %{x}",
+      "<br><b>Messages:</b> %{y}",
+      "<extra></extra>"
+    )
+) %>%
+  layout(
+    title = list(text = "Communication Activity on Breach Day"),
+    xaxis = list(
+      title = "Time",
+      showgrid = TRUE
+    ),
+    yaxis = list(
+      title = "Messages",
+      showgrid = TRUE
+    )
+  )
+```
+
+::: callout-note
+Communication activity remained consistently high throughout breach day. Notably, communication volume surged to its peak at 12pm on breach day, dropped sharply at 1pm before surging again from 2pm to 3pm, just 2 hours before the inappropriate release happened. This suggests that organisational attention became increasingly focused on merger-related matters approaching the release.
+:::
+
+## 4.3 Spread of Sensitive Information
+
+In this step, merger-related and embargo-related discussions were analysed across monitored and unmonitored communication spaces to determine whether sensitive information remained contained.
+
+```{r}
+bypass_analysis_df <- communications_tbl %>%
+  filter(
+    str_detect(
+      str_to_lower(content),
+      "civicloom|harborcrest|merger|embargo"
+    )
+  ) %>%
+  mutate(
+    channel_type = case_when(
+      channel %in% c("official_post", "comms_huddle") ~
+        "Official Channels",
+      TRUE ~
+        "Unofficial Channels"
+    )
+  ) %>%
+  count(round_id, channel_type) %>%
+  left_join(
+    rounds_tbl %>%
+      select(round_id, round_time),
+    by = "round_id"
+  ) %>%
+  filter(!is.na(round_time))
 
 ggplot(
-  breach_day_tbl,
+  bypass_analysis_df,
   aes(
     x = round_time,
-    y = n_communications
+    y = n,
+    fill = channel_type
   )
 ) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 3) +
-  scale_x_datetime(
-    date_breaks = "1 hour",
-    date_labels = "%H:%M"
+  geom_area(
+    position = "stack",
+    alpha = 0.8
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Official Channels" = "#34495e",
+      "Unofficial Channels" = "#e67e22"
+    )
   ) +
   labs(
-    title = "Communication Activity on Breach Day",
-    x = "Time",
-    y = "Number of Communications"
+    title = "Spread of Sensitive Information",
+    subtitle = "Merger and embargo discussions increasingly appeared outside official channels",
+    x = "Timeline",
+    y = "Sensitive Topic Mentions",
+    fill = "Channel Type"
   ) +
   theme_minimal()
 ```
 
 ::: callout-note
-Communication activity remained consistently high throughout the breach day, with several rounds recording more than 50 communications. Although temporary declines were observed at 1 PM and 4 PM, activity recovered quickly and reached peak levels during the final hours before the embargo deadline. The repeated surges in communication suggest sustained coordination and heightened organisational attention throughout the day. The highest communication volumes occurred immediately before the scheduled embargo release time, indicating that the breach emerged during a period of intense information exchange rather than as an isolated event.
+Sensitive information related to the merger occurs in unofficial channels throughout the two weeks period. The orange areas shows that information was circulating through less-controlled spaces before the breach, and even during the breach day. This weakens the effectiveness of embargo controls and increases the likelihood of disclosure.
 :::
 
-# 5. Agent Behaviour Analysis
+## 4.4 Agent Participation Across Crisis Rounds
 
-## 5.1 Agent Participation
-
-The objective of this analysis is to identify the agents that were most actively involved throughout the crisis period. By examining participation frequency across crisis rounds, it becomes possible to determine which agents played central roles in discussions and decision-making leading up to the embargo breach.
+Agent participation was analysed to identify the actors most actively involved throughout the investigation period. It can further determine which agents played central roles in discussions and decision-making leading up to the embargo breach.
 
 ```{r}
-channel_network_tbl <- communications_tbl %>%
-  count(
-    agent_label,
-    channel,
-    name = "weight"
-  )
-
-glimpse(channel_network_tbl)
-
-
-```
-
-::: callout-note
-The participation analysis shows that the **Legal-Agent** and **Social-Manager-Agent** were the most consistently involved actors throughout the crisis, participating in 22 and 21 rounds respectively. In contrast, the **Judge-Agent** participated in only 6 rounds, indicating that it was introduced relatively late in the crisis.
-:::
-
-## 5.2 Agent Communication Volume
-
-The objective of this analysis is to examine communication activity across agents and identify which actors contributed most actively to discussions throughout the crisis period. While participation frequency indicates presence within a round, communication volume reflects the extent to which agents influenced discussions, exchanged information, and contributed to decision-making processes leading up to the embargo breach.
-
-```{r}
-agent_comm_tbl <- communications_tbl %>%
-  count(agent_label, sort = TRUE)
+agent_participation_tbl <- communications_tbl %>%
+  distinct(round_id, agent_label) %>%
+  count(agent_label, name = "rounds_participated") %>%
+  arrange(desc(rounds_participated))
 
 ggplot(
-  agent_comm_tbl,
+  agent_participation_tbl,
   aes(
-    x = reorder(agent_label, n),
-    y = n
+    x = reorder(agent_label, rounds_participated),
+    y = rounds_participated
   )
 ) +
-  geom_col() +
+  geom_col(fill = "#2C7FB8") +
   coord_flip() +
   labs(
-    title = "Communication Volume by Agent",
+    title = "Agent Participation Across Crisis Rounds",
     x = "Agent",
-    y = "Number of Communications"
+    y = "Number of Crisis Rounds Participated"
   ) +
   theme_minimal()
 ```
 
 ::: callout-note
-The similarity between participation frequency and communication volume suggests that the most influential agents in the crisis were also the most consistently involved. This makes the Legal-Agent, Social-Manager-Agent, and Platform-Trust-Agent key subjects for subsequent analyses of communication networks, information flow, and behaviours associated with the embargo breach.
+The agents most involved in the events leading up to the embargo breach were Legal-Agent, Social-Manager-Agent, and Platform-Trust-Agent. They formed the core communication group throughout the two weeks period. Surprisingly, the Judge-Agent have the weakest participation rate despite being the compliance tool to ensure that sensitive information should not be leaked.
 :::
 
-## 5.3 Behaviour Shift Before vs During Breach
+## 4.5 Agents and Channels Relationship
+
+A communication network was constructed to visualise how agents interacted with the channels and how information propagated throughout the system.
 
 ```{r}
-agent_phase_tbl <- communications_tbl %>%
+vis_nodes <- as_tibble(comms_graph) %>%
   mutate(
-    crisis_phase = if_else(
-      as.Date(round_time) == as.Date("2046-06-05"),
+    color = case_when(
+      type == "Agent" ~ "#1abc9c",
+      type == "Channel" ~ "#34495e",
+      TRUE ~ "#7f8c8d"
+    ),
+    shape = case_when(
+      type == "Agent" ~ "dot",
+      type == "Channel" ~ "square",
+      TRUE ~ "dot"
+    ),
+    size = log1p(degree_centrality) * 12,
+    title = paste0(
+      "<b>", id, "</b>",
+      "<br>Type: ", type,
+      "<br>Degree Centrality: ", round(degree_centrality, 2),
+      "<br>Betweenness: ", round(betweenness_stat, 2)
+    )
+  )
+
+vis_edges <- edges_tbl %>%
+  mutate(
+    value = weight,
+    color = "#bdc3c7",
+    arrows = "to",
+    title = paste0(
+      "Messages exchanged: ", weight
+    )
+  )
+
+visNetwork(
+  vis_nodes,
+  vis_edges,
+  width = "100%",
+  height = "600px"
+) %>%
+  visOptions(
+    highlightNearest = TRUE,
+    nodesIdSelection = TRUE
+  ) %>%
+  visPhysics(
+    solver = "forceAtlas2Based",
+    forceAtlas2Based = list(
+      gravitationalConstant = -50
+    )
+  ) %>%
+  visLayout(randomSeed = 42)
+```
+
+::: callout-note
+The network shows that information flow was concentrated around a small number of highly connected communication channels, particularly Comms Huddle and One-on-One Chat. These channels connected multiple agents and created efficient pathways for information dissemination. Their central position within the network made them critical system elements in the spread of merger-related information.
+:::
+
+## 4.6 Direct Agent Pathways Enabled Information Spread
+
+To move beyond channel activity, direct recipient relationships were extracted from the communication logs. Broadcast messages were excluded so that the analysis focuses only on peer-to-peer communication pathways. This reveals which agents exchanged information directly and identifies direct pathways for sensitive information to circulate.
+
+```{r}
+agent_name_mapping <- c(
+  "ALL" = "Broadcast",
+  "legal" = "Legal-Agent",
+  "pr" = "PR-Agent",
+  "social_manager" = "Social-Manager-Agent",
+  "platform_trust" = "Platform-Trust-Agent",
+  "pr_intern" = "PR-Intern-Agent",
+  "intern" = "Intern-Agent",
+  "judge" = "Judge-Agent"
+)
+
+agent_direct_edges <- communications_tbl %>%
+  select(agent_label, recipients) %>%
+  mutate(
+    recipients_cleaned = map(recipients, function(x) {
+      if (is.null(x) || length(x) == 0) {
+        character(0)
+      } else {
+        as.character(unlist(x))
+      }
+    })
+  ) %>%
+  select(-recipients) %>%
+  unnest(recipients_cleaned) %>%
+  mutate(to_node = agent_name_mapping[recipients_cleaned]) %>%
+  filter(
+    !is.na(to_node),
+    to_node != "Broadcast",
+    agent_label != to_node
+  ) %>%
+  count(agent_label, to_node, name = "interaction_weight") %>%
+  rename(from = agent_label, to = to_node)
+
+agent_nodes <- tibble(
+  id = unique(c(agent_direct_edges$from, agent_direct_edges$to))
+) %>%
+  mutate(
+    label = id,
+    color = case_when(
+      id == "Legal-Agent" ~ "#e74c3c",
+      id == "Social-Manager-Agent" ~ "#3498db",
+      id == "Judge-Agent" ~ "#9b59b6",
+      TRUE ~ "#95a5a6"
+    )
+  )
+
+agent_graph <- tbl_graph(
+  nodes = agent_nodes,
+  edges = agent_direct_edges,
+  directed = TRUE
+) %>%
+  activate(nodes) %>%
+  mutate(
+    p2p_degree = centrality_degree(weights = interaction_weight),
+    p2p_betweenness = centrality_betweenness()
+  )
+
+vis_nodes_p2p <- agent_graph %>%
+  activate(nodes) %>%
+  as_tibble() %>%
+  mutate(
+    size = log1p(p2p_degree) * 15,
+    title = paste0(
+      "Agent: ", id,
+      "<br>Direct Connection Score: ", round(p2p_degree, 2)
+    )
+  )
+
+visNetwork(
+  vis_nodes_p2p,
+  agent_direct_edges %>%
+    mutate(value = interaction_weight, arrows = "to"),
+  width = "100%",
+  height = "500px",
+  main = "Peer-to-Peer Direct Communication Network"
+) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visPhysics(solver = "forceAtlas2Based")
+```
+
+::: callout-note
+It can be observed that legal-agent and social-manager-agent maintained the highest level of peer-to peer communication links and bypassed broader group oversight.
+:::
+
+# 5. Behaviour Analysis for Pre and During Release
+
+## 5.1 Changes in Agent Message Activity Rates
+
+This analysis visualizes agent behavioral changes across different phases of the crisis. It highlights how communication frequency surged as the merger embargo deadline approached.
+
+```{r}
+behavior_shift_tbl <- communications_tbl %>%
+  mutate(
+    phase = if_else(
+      round_date == as.Date("2046-06-05"),
       "Breach Day",
       "Pre-Breach"
     )
   ) %>%
-  group_by(agent_label, crisis_phase) %>%
-  summarise(
-    avg_messages = n() / n_distinct(round_id),
-    .groups = "drop"
+  count(
+    phase,
+    agent_label,
+    name = "n_messages"
   )
 
-glimpse(agent_phase_tbl)
-
 ggplot(
-  agent_phase_tbl,
+  behavior_shift_tbl,
   aes(
-    x = agent_label,
-    y = avg_messages,
-    fill = crisis_phase
+    x = reorder(agent_label, n_messages),
+    y = n_messages,
+    fill = phase
   )
 ) +
   geom_col(position = "dodge") +
-  labs(
-    title = "Agent Communication Behaviour Before and During the Breach",
-    x = "Agent",
-    y = "Average Messages per Round",
-    fill = "Crisis Phase"
+  coord_flip() +
+  scale_fill_manual(
+    values = c(
+      "Breach Day" = "#e74c3c",
+      "Pre-Breach" = "#7f8c8d"
+    )
   ) +
-  theme_minimal() +
-  coord_flip()
+  labs(
+    title = "Agent Communication Activity Before and During the Breach",
+    subtitle = "Comparison of message volumes across agents",
+    x = "Agent",
+    y = "Number of Messages",
+    fill = "Period"
+  ) +
+  theme_minimal()
 ```
 
+## 
+
 ::: callout-note
-All major agents exhibited substantial increases in communication activity on breach day, with the largest increases observed among the PR-Agent, Social-Manager-Agent, and PR-Intern-Agent. This suggests heightened coordination and information exchange as the embargo deadline approached. In contrast, the Judge-Agent did not exhibit a similar increase in activity despite being responsible for embargo enforcement. The divergence between the Judge-Agent and the remaining agents may indicate that communication controls did not scale proportionally with the increased communication demands of the crisis period.
+Legal-Agent, Social-Manager-Agent, PR-Intern-Agent, and Intern-Agent exhibited the largest increases in communication activity during the breach period. Their heightened engagement suggests they became increasingly involved in managing merger-related discussions as external scrutiny intensified.
 :::
 
-# 6. Communication and Information Flow
+## 5.2 Changes in Channel Usage Rates
 
-The objective of this section is to investigate how merger-related information circulated within TenantThread's communication ecosystem prior to the embargo breach. Understanding who discussed sensitive topics, how widely information was distributed, and where these discussions occurred provides critical evidence for assessing whether the breach resulted from deliberate actions or a breakdown in information governance.
-
-## 6.1 Communication Channel Usage
-
-The objective of this analysis is to examine how agents utilised different communication channels throughout the crisis period. Communication channels serve as shared environments where information could be exchanged and propagated. Understanding channel usage patterns helps identify the primary communication hubs, assess the role of private versus public communication spaces, and reveal potential pathways through which sensitive information may have circulated prior to the embargo breach.
+To determine whether communication behaviour changed during the embargo breach, channel usage patterns were compared between the pre-breach period and breach day.
 
 ```{r}
-channel_usage_tbl <- communications_tbl %>%
+channel_phase_tbl <- communications_tbl %>%
+  mutate(
+    phase = if_else(
+      round_date == as.Date("2046-06-05"),
+      "Breach Day",
+      "Pre-Breach"
+    )
+  ) %>%
   count(
-    agent_label,
+    phase,
     channel,
     name = "n_messages"
-  ) %>%
-  mutate(
-    channel = forcats::fct_reorder(
-      channel,
-      n_messages,
-      .fun = sum,
-      .desc = TRUE
-    )
   )
 
 ggplot(
-  channel_usage_tbl,
+  channel_phase_tbl,
   aes(
-    x = channel,
-    y = agent_label,
-    fill = n_messages
+    x = reorder(channel, n_messages),
+    y = n_messages,
+    fill = phase
   )
 ) +
-  geom_tile(color = "white") +
-  scale_fill_gradient(
-    low = "grey90",
-    high = "steelblue"
+  geom_col(position = "dodge") +
+  coord_flip() +
+  scale_fill_manual(
+    values = c(
+      "Breach Day" = "#e74c3c",
+      "Pre-Breach" = "#7f8c8d"
+    )
   ) +
   labs(
-    title = "Communication Channel Usage by Agent",
+    title = "Communication Channel Usage Before and During the Breach",
+    subtitle = "Comparison of message volumes across communication channels",
     x = "Communication Channel",
-    y = "Agent",
-    fill = "Messages"
+    y = "Number of Messages",
+    fill = "Period"
   ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(
-      angle = 45,
-      hjust = 1
-    )
-  )
+  theme_minimal()
 ```
 
 ::: callout-note
-Communication activity was concentrated in **Comms Huddle** and **One-on-One Chat**, indicating that these channels served as the primary environments for information exchange. Legal-Agent and Platform-Trust-Agent exhibited the highest activity across channels, while Judge-Agent maintained limited participation. Public-facing channels were used by fewer agents and supported more specialised communications. (49 words)
+Communication shifted towards less visible environments on breach day. While Comms Huddle remained dominant, Side Huddle activity increased substantially and Anonymous Post activity emerged.
 :::
 
-## 6.2 Information Flow
+# 6. Leading Indicators for the Breach
 
-The objective of this analysis is to investigate how merger-related and embargo-related information circulated throughout the organisation. By examining the frequency of sensitive keywords, the analysis identifies which topics dominated internal communications and assesses whether embargoed information was already widely distributed prior to the public release.
+## 6.1 Sensitive Information Spread by Channels
+
+This tracking matrix visualizes how sensitive merger information spread across the network, showing its presence in both public spaces and unmonitored internal channels.
 
 ```{r}
-keywords <- c(
+target_tokens <- c(
   "civicloom",
   "harborcrest",
   "merger",
   "embargo",
   "judge",
-  "shadow",
   "leak"
 )
 
-keyword_counts <- map_dfr(
-  keywords,
-  function(k) {
+token_distribution <- map_dfr(
+  target_tokens,
+  function(token) {
     communications_tbl %>%
-      summarise(
-        mentions = sum(
-          str_detect(
-            str_to_lower(content),
-            k
-          )
+      filter(
+        str_detect(
+          str_to_lower(content),
+          token
         )
       ) %>%
+      count(
+        channel,
+        name = "mentions"
+      ) %>%
       mutate(
-        keyword = str_to_title(k)
+        keyword = str_to_title(token)
       )
   }
 )
 
 ggplot(
-  keyword_counts,
-  aes(
-    x = reorder(keyword, mentions),
-    y = mentions
-  )
-) +
-  geom_col(fill = "steelblue") +
-  coord_flip() +
-  labs(
-    title = "Frequency of Sensitive Keywords in Communications",
-    x = "Keyword",
-    y = "Number of Mentions"
-  ) +
-  theme_minimal()
-```
-
-::: callout-note
-Merger-related topics were highly visible throughout the communication ecosystem, with **CivicLoom (144 mentions)**, **Merger (90 mentions)**, and **HarborCrest (69 mentions)** appearing frequently across communications. Discussions involving **Judge (85 mentions)** and **Embargo (68 mentions)** indicate that compliance controls were actively referenced. Despite this, the subsequent breach still occurred, suggesting that the challenge was not a lack of awareness but the inability of enforcement mechanisms to effectively contain sensitive information once it became widely distributed across organisational communications.
-:::
-
-## **6.3 Information Leakage Across Communication Channels**
-
-The objective of this analysis is to investigate whether sensitive merger-related information remained within formal communication channels or spread into less regulated communication environments prior to the embargo breach. Understanding where sensitive discussions occurred provides insights into potential weaknesses in information governance and communication controls.
-
-```{r}
-keywords <- c(
-  "civicloom",
-  "harborcrest",
-  "merger",
-  "embargo",
-  "judge",
-  "shadow",
-  "leak"
-)
-
-keyword_channel_tbl <- map_dfr(
-  keywords,
-  function(k) {
-    communications_tbl %>%
-      filter(
-        str_detect(
-          str_to_lower(content),
-          k
-        )
-      ) %>%
-      count(channel) %>%
-      mutate(keyword = k)
-  }
-)
-
-keyword_channel_tbl
-
-ggplot(
-  keyword_channel_tbl,
+  token_distribution,
   aes(
     x = channel,
     y = keyword,
-    fill = n
+    fill = mentions
   )
 ) +
-  geom_tile(color = "white") +
+  geom_tile(
+    color = "white",
+    linewidth = 0.5
+  ) +
   scale_fill_gradient(
-    low = "white",
-    high = "darkblue"
+    low = "grey95",
+    high = "#2980b9"
   ) +
   labs(
-    title = "Sensitive Information Distribution Across Channels",
+    title = "Sensitive Keyword Distribution Across Channels",
+    subtitle = "Frequency of merger, embargo, and compliance-related terms across communication channels",
     x = "Communication Channel",
     y = "Sensitive Keyword",
     fill = "Mentions"
@@ -555,39 +652,108 @@ ggplot(
 ```
 
 ::: callout-note
-Sensitive information was widely distributed across multiple communication channels rather than remaining within formal organisational discussions. CivicLoom, HarborCrest, and merger-related topics appeared frequently in side huddles and one-on-one chats, while embargo discussions were prominent in informal channels. This suggests weakened information containment prior to the breach.
+Merger-related keywords appeared across multiple communication channels rather than remaining confined to a single controlled environment. CivicLoom, HarborCrest, Merger, and Embargo were observed in significant numbers in Side Huddle and One-on-One Chat.
 :::
 
-# 7. Root Cause Assessment
+## 6.2 Sensitive Information Spread by Agents
 
-## 7.1 Leading Indicators Prior to the Breach
+To identify which actors were most exposed to merger-related and embargo-related information, communications containing sensitive keywords were analysed across all agents.
 
-Sensitive information emerged progressively throughout the investigation rather than through a single disclosure event. Early discussions focused on Civicloom and Harborcrest, which remained recurring topics across multiple crisis rounds. As the crisis evolved, attention shifted towards merger-related matters and Judge involvement, indicating growing concerns over governance and oversight.
+```{r}
+agent_keyword_tbl <- map_dfr(
+  target_tokens,
+  function(token) {
+    communications_tbl %>%
+      filter(str_detect(str_to_lower(content), token)) %>%
+      count(agent_label, name = "mentions") %>%
+      mutate(keyword = str_to_title(token))
+  }
+)
 
-Closer to the breach date, embargo-related discussions became more visible alongside references to leaks and information control. The findings suggest that sensitive information gradually spread across agents and communication channels over time, increasing the risk of unauthorized exposure and ultimately contributing to the embargo breach.
+ggplot(
+  agent_keyword_tbl,
+  aes(
+    x = keyword,
+    y = agent_label,
+    fill = mentions
+  )
+) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(
+    low = "grey95",
+    high = "#2980b9"
+  ) +
+  labs(
+    title = "Distribution of Sensitive Topics Across Agents",
+    x = "Sensitive Keyword",
+    y = "Agent",
+    fill = "Mentions"
+  ) +
+  theme_minimal()
+```
 
-**Key Finding:** The embargo breach was the result of cumulative information exposure across multiple crisis rounds rather than a single communication failure.
+::: callout-note
+Sensitive discussions were concentrated among Legal-Agent and Social-Manager-Agent, which recorded the highest mention frequencies for most keywords. In contrast, Judge-Agent exhibited minimal engagement with merger and embargo-related topics despite its compliance role.
+:::
 
-## 7.2 Breakdown of Information Governance
+## 6.3 Most Commonly Used Terms in Agent Communications
 
-Analysis of communication patterns indicates that sensitive information was not confined to a single channel or small group of agents. High-risk topics such as Civicloom, Merger, Judge and Embargo appeared across multiple communication channels, including comms_huddle, side_huddle and one_on_one_chat. At the same time, communication volume increased substantially as the crisis progressed, involving a wider range of participants.
+TF-IDF analysis was also performed to identify words that were disproportionately associated with individual agents.
 
-The distribution of sensitive discussions across multiple channels and agents suggests weaknesses in information governance and containment. Rather than being restricted to authorised personnel, sensitive information became increasingly accessible throughout the communication network, creating conditions that increased the likelihood of an embargo breach.
+```{r}
+tfidf_tbl <- communications_tbl %>%
+  select(agent_label, content) %>%
+  unnest_tokens(word, content) %>%
+  anti_join(stop_words, by = "word") %>%
+  filter(str_length(word) > 2) %>%
+  count(agent_label, word, sort = TRUE) %>%
+  bind_tf_idf(word, agent_label, n)
 
-**Key Finding:** The embargo breach was likely facilitated by the widespread circulation of sensitive information across multiple channels and participants, reflecting insufficient information governance controls.
+top_tfidf_tbl <- tfidf_tbl %>%
+  group_by(agent_label) %>%
+  slice_max(tf_idf, n = 10) %>%
+  ungroup()
 
-## 7.3 Assessment of the Embargo Breach
+ggplot(
+  top_tfidf_tbl,
+  aes(
+    x = reorder_within(word, tf_idf, agent_label),
+    y = tf_idf,
+    fill = agent_label
+  )
+) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~agent_label, scales = "free_y") +
+  scale_x_reordered() +
+  coord_flip() +
+  labs(
+    title = "Distinctive Terms Used by Each Agent",
+    x = "Term",
+    y = "TF-IDF Score"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+```
 
-The investigation found no clear evidence that a single agent deliberately leaked the merger information. Instead, merger-related topics were widely discussed across multiple agents and communication channels prior to the breach. Sensitive information involving CivicLoom, HarborCrest, Merger and Embargo appeared throughout the communication ecosystem, indicating that confidential information had become broadly distributed.
+::: callout-note
+Interestingly, "merger" appeared as a distinctive term used by Intern-Agent which indicates that sensitive information has reached low-level team members in the company.
+:::
 
-While intentional disclosure cannot be completely ruled out, the available evidence more strongly supports a breakdown in information governance and containment. The widespread circulation of sensitive information across agents and channels likely increased the probability of an embargo breach occurring.
+# 7. Summary Insights
 
-**Key Finding:** The evidence is more consistent with systemic information governance failure than with a deliberate leak by a specific agent.
+## 7.1 What Were the Key Events and Relationships That Led to the Inappropriate Release?
 
-# 8. Conclusion
+The embargo breach occurred during increasing external scrutiny on the organisation. The volume of communication fluctuated but followed an increasing trend generally, which indicates more pressure on the organisation to make responses and decisions. The increasing stress, together with unofficial channels acting as key communication routes, and high peer-to-peer interactions between Legal-Agent and Social-Manager-Agent, created efficient pathways for sensitive information to circulate outside of controlled environment. On top of this, the Judge-Agent showed weak participation in ensuring compliance and containment of sensitive information.
 
-This investigation reconstructed the sequence of events leading to TenantThread's embargo breach by examining communication activity, agent behaviour, and the flow of sensitive information across the organisation. The findings show that merger-related information involving CivicLoom and Project HarborCrest became increasingly prevalent throughout the crisis period and was discussed across multiple agents and communication channels.
+## 7.2 How Did the Behaviour Leading to the Release Differ from Prior Behaviour?
 
-Several warning signs emerged prior to the breach, including increasing communication activity, growing exposure to sensitive topics, and the spread of confidential discussions beyond formal communication environments. These patterns suggest that sensitive information became progressively more difficult to contain as the crisis evolved.
+According to the extracted insights, communication behaviour changed noticeably on breach day. Legal-Agent, Social-Manager-Agent, PR-Intern-Agent, and Intern-Agent exhibited increased activity levels. Side Huddle usage increased substantially and Anonymous Post activity emerged. Communication became increasingly distributed across informal channels rather than remaining within formal communication environments.
 
-While the investigation found no conclusive evidence that a specific agent intentionally leaked the merger information, the evidence more strongly supports a breakdown in information governance and containment controls. Sensitive information was widely distributed across the communication ecosystem, increasing the likelihood of unintended disclosure. Consequently, the embargo breach appears to be the result of systemic governance weaknesses rather than a clearly identifiable deliberate leak.
+## 7.3 Were There Leading Indicators That the Breach Was Possible?
+
+It is clear that sensitive information appeared across multiple agents and channels before the breach occurred. CivicLoom, HarborCrest, Merger, and Embargo were repeatedly discussed beyond official communication spaces. TF-IDF analysis further showed that merger-related terminology had even reached the Intern-Agent, indicating that sensitive information had already diffused beyond the core decision-making group. A lack of timely action could be a result of the weak involvement of the Judge-Agent, causing unexpected behaviours to go unnoticed and leading to the embargo breach on 5 June.
+
+Overall, the evidence suggests that the breach is likely the result of a gradual breakdown in information governance. As pressure mounted, merger-related discussions spread beyond official communication channels and became increasingly difficult to contain. Despite being responsible for compliance oversight, Judge-Agent played only a limited role in monitoring these discussions. Furthermore, sensitive information had already reached individuals outside of the core decision making group, making accidental disclosure a highly plausible outcome.
