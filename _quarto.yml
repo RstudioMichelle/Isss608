@@ -37,6 +37,8 @@ website:
             file: HandsOnExercise/hands-on-5e.qmd 
           - text: "Hands-on Exercise 7a"
             file: HandsOnExercise/hands-on-7a.qmd
+          - text: "Hands-on Exercise 7b"
+            file: HandsOnExercise/hands-on-7b.qmd
       - text: "Take-home Exercises"
         menu: 
           - text: "Take-home Exercise 1 - Executive Summary"
