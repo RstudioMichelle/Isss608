@@ -36,7 +36,7 @@ This investigation adopts a visual analytics approach to reconstruct the sequenc
 3.  assessing whether the breach resulted from deliberate actions or systemic failures.
 
 | Analytical Method | Visual Analytics Technique | Investigation Objective |
-|:---------------|:---------------|:--------------------------------------|
+|:---|:---|:---|
 | Temporal Analysis | Timeline visualisation and communication volume analysis | Identify key events, communication surges, and activity patterns leading up to the breach |
 | Network Analysis | Agent-channel networks and peer-to-peer interaction networks | Examine information flow pathways and identify influential communication channels |
 | Behavioural Analysis | Agent activity comparison and channel usage comparison | Detect shifts in communication behaviour before and during the breach |

@@ -40,7 +40,7 @@ website:
           - text: "Hands-on Exercise 7b"
             file: HandsOnExercise/hands-on-7b.qmd
           - text: "Hands-on Exercise 8"
-            file: HandsOnExercise/hands-on8.qmd
+            file: HandsOnExercise/hands-on-8.qmd
       - text: "Take-home Exercises"
         menu: 
           - text: "Take-home Exercise 1 - Executive Summary"
